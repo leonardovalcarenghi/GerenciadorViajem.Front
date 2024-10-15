@@ -92,7 +92,7 @@ export default function Cities_FormPage() {
                                 <div className="col">
                                     <label className="form-label required" htmlFor="federativeUnitSelect">Unidade Federativa:</label>
                                     <select
-                                        className="form-control"
+                                        className="form-select"
                                         id="federativeUnitSelect"
                                         required
                                         disabled={processing || importing}

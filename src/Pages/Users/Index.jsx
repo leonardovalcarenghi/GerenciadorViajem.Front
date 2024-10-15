@@ -37,10 +37,17 @@ export default function Users_IndexPage() {
     return (
         <>
             <PageHeader title="Usuários">
-                <Link className="btn btn-primary" to={"/usuarios/novo"}>
-                    <IconPlus stroke={1} />
-                    Novo Usuário
-                </Link>
+
+                <div className="row justify-content-end">
+                    <div className="col-auto">
+                        <Link className="btn btn-primary" to={"/usuarios/novo"}>
+                            <IconPlus stroke={1} />
+                            Novo Usuário
+                        </Link>
+                    </div>
+                </div>
+
+
             </PageHeader>
 
             <div className="row">

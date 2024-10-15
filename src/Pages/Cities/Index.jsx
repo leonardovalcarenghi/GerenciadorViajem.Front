@@ -33,10 +33,16 @@ export default function Cities_IndexPage() {
         <>
 
             <PageHeader title="Cidades">
-                <Link className="btn btn-primary" to={"/cidades/novo"}>
-                    <IconPlus stroke={1} />
-                    Nova Cidade
-                </Link>
+
+                <div className="row justify-content-end">
+                    <div className="col-auto">
+                        <Link className="btn btn-primary" to={"/cidades/novo"}>
+                            <IconPlus stroke={1} />
+                            Nova Cidade
+                        </Link>
+                    </div>
+                </div>
+
             </PageHeader>
 
             <div className="row">

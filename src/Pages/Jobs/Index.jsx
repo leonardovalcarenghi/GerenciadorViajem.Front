@@ -34,10 +34,17 @@ export default function Jobs_IndexPage() {
     return (
         <>
             <PageHeader title="Cargos">
-                <Link className="btn btn-primary" to={"/cargos/novo"}>
-                    <IconPlus stroke={1} />
-                    Novo Cargo
-                </Link>
+
+                <div className="row justify-content-end">
+                    <div className="col-auto">
+                        <Link className="btn btn-primary" to={"/cargos/novo"}>
+                            <IconPlus stroke={1} />
+                            Novo Cargo
+                        </Link>
+                    </div>
+                </div>
+
+
             </PageHeader>
 
             <div className="row">

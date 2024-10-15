@@ -125,11 +125,11 @@ export default function Travels_FormPage() {
                             <div className="row mb-3">
                                 <div className="col">
                                     <label className="form-label required" htmlFor="nameInput">Unidade Federativa:</label>
-                                    <select className="form-control"></select>
+                                    <select className="form-select"></select>
                                 </div>
                                 <div className="col">
                                     <label className="form-label required" htmlFor="nameInput">Cidade:</label>
-                                    <select className="form-control"></select>
+                                    <select className="form-select"></select>
                                 </div>
                             </div>
 
@@ -174,7 +174,7 @@ export default function Travels_FormPage() {
                                         <label className="form-label required" htmlFor={`uf_${index}`}>Unidade Federativa:</label>
                                         <select
                                             id={`uf_${index}`}
-                                            className="form-control"
+                                            className="form-select"
                                             value={destination.idMunicipioDestino}
                                             onChange={(e) => updateDestination(index, 'idMunicipioDestino', e.target.value)}
                                         >
@@ -185,7 +185,7 @@ export default function Travels_FormPage() {
                                         <label className="form-label required" htmlFor={`cidade_${index}`}>Cidade:</label>
                                         <select
                                             id={`cidade_${index}`}
-                                            className="form-control"
+                                            className="form-select"
                                             value={destination.idMunicipioDestino}
                                             onChange={(e) => updateDestination(index, 'idMunicipioDestino', e.target.value)}
                                         >

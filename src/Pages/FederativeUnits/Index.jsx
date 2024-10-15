@@ -32,10 +32,17 @@ export default function FederativeUnits_IndexPage() {
     return (
         <>
             <PageHeader title="Unidades Federativas">
-                <Link className="btn btn-primary" to={"/unidades-federativas/novo"}>
-                    <IconPlus stroke={1} />
-                    Nova Unidade Federativa
-                </Link>
+
+                <div className="row justify-content-end">
+                    <div className="col-auto">
+                        <Link className="btn btn-primary" to={"/unidades-federativas/novo"}>
+                            <IconPlus stroke={1} />
+                            Nova Unidade Federativa
+                        </Link>
+                    </div>
+                </div>
+
+
             </PageHeader>
 
 

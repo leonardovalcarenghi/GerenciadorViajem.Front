@@ -109,7 +109,7 @@ export default function Users_FormPage() {
                             <div className="mb-3">
                                 <label className="form-label required" htmlFor="jobSelect">Cargo:</label>
                                 <select
-                                    className="form-control"
+                                    className="form-select"
                                     id="jobSelect"
                                     name="idCargo"
                                     required

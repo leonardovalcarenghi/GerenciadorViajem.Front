@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PageHeader from "../../Components/Header";
-import { IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash } from "@tabler/icons-react";
+import { IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash, IconUser } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
 export default function Travels_IndexPage() {
@@ -17,10 +17,30 @@ export default function Travels_IndexPage() {
         <>
 
             <PageHeader title="Viagens">
-                <Link className="btn btn-primary" to={"/viagens/novo"}>
-                    <IconPlus stroke={1} />
-                    Nova Viagem
-                </Link>
+                <div className="row justify-content-end">
+                    <div className="col-5">
+                        <div className="input-group flex-nowrap">
+                            <span className="input-group-text" id="addon-wrapping">
+                                <IconUser stroke={1} size={26} />
+                            </span>
+                            <select className="form-select">
+                                <option>teste 1</option>
+                                <option>teste 2</option>
+
+                            </select>
+                        </div>
+
+
+
+                    </div>
+                    <div className="col-auto">
+                        <Link className="btn btn-primary" to={"/viagens/novo"}>
+                            <IconPlus stroke={1} />
+                            Nova Viagem
+                        </Link>
+                    </div>
+                </div>
+
             </PageHeader>
 
             <div className="row">
