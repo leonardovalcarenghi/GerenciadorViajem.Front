@@ -35,49 +35,58 @@ export default function Header() {
                         </li>
 
                         <li className="nav-item">
-                            <NavLink to={"/usuarios"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-                                <IconUsers />
-                                Usuários
-                            </NavLink>
-                        </li>
-
-                        <li className="nav-item">
                             <NavLink to={"/viagens"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                                 <IconPlaneTilt />
                                 Viagens
                             </NavLink>
                         </li>
-                        
+
                         {
-                            user?.cargo?.idCargo == 1 &&
-                            <li className="nav-item">
-                                <NavLink to={"/cargos"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-                                    <IconBriefcase2 />
-                                    Cargos
-                                </NavLink>
-                            </li>
+                            (user?.cargo?.idCargo == 1 || user?.cargo?.idCargo == 3) &&
+                            <>
+
+                                <li className="nav-item">
+                                    <NavLink to={"/cargos"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                                        <IconBriefcase2 />
+                                        Cargos
+                                    </NavLink>
+                                </li>
+
+                                <li className="nav-item">
+                                    <NavLink to={"/usuarios"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                                        <IconUsers />
+                                        Usuários
+                                    </NavLink>
+                                </li>
+
+                                <li className="nav-item">
+                                    <NavLink to={"/unidades-federativas"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                                        <IconMap />
+                                        Unidades Federativas
+                                    </NavLink>
+                                </li>
+
+                                <li className="nav-item">
+                                    <NavLink to={"/cidades"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                                        <IconBuildingCommunity />
+                                        Cidades
+                                    </NavLink>
+                                </li>
+
+                                <li className="nav-item">
+                                    <NavLink to={"/relatorios"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                                        <IconReport />
+                                        Relatórios
+                                    </NavLink>
+                                </li>
+
+
+                            </>
+
                         }
 
-                        <li className="nav-item">
-                            <NavLink to={"/unidades-federativas"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-                                <IconMap />
-                                Unidades Federativas
-                            </NavLink>
-                        </li>
 
-                        <li className="nav-item">
-                            <NavLink to={"/cidades"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-                                <IconBuildingCommunity />
-                                Cidades
-                            </NavLink>
-                        </li>
 
-                        <li className="nav-item">
-                            <NavLink to={"/relatorios"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-                                <IconReport />
-                                Relatórios
-                            </NavLink>
-                        </li>
 
                     </ul>
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">

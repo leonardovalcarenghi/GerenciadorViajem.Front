@@ -16,7 +16,7 @@ export default function FederativeUnitsPage() {
     async function getUnits() {
         setImportingUnits(true);
         const result = await GetFederativeUnits();
-        setUnits(result.data);
+        setUnits(result);
         setImportingUnits(false);
     }
 

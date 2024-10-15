@@ -16,7 +16,7 @@ export default function CitiesPage() {
     async function getCities() {
         setImportingCities(true);
         const result = await GetCities();
-        setCities(result.data);
+        setCities(result);
         setImportingCities(false);
     }
 

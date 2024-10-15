@@ -12,6 +12,8 @@ export default function ReportPage() {
 
     return (
         <>
+            somente o admin tem acesso.
+            selecionar usuário e trazer todas as viajens.
         </>
     )
 }

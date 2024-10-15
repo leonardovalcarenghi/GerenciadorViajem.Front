@@ -43,6 +43,6 @@ export const GetUsers = () => axios.get('/empregado/listar')
 export const GetActualUser = async () => {
 
     const response = await axios.get('auth/success');
-    return response?.data?.user;
+    return response?.user;
 
 };

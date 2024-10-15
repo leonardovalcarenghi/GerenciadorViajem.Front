@@ -17,7 +17,7 @@ export default function JobsPage() {
     async function getJobs() {
         setImportingJobs(true);
         const result = await GetJobs();
-        setJobs(result.data);
+        setJobs(result);
         setImportingJobs(false);
     }
 

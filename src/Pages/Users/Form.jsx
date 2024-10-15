@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react"
+import { IconCheck } from "@tabler/icons-react";
+import PageHeader from "../Components/Header";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { USER } from "../../Models/User";
 import { GetJobs } from "../../Services/Jobs";
 import { EditUser, GetUser, NewUser } from "../../Services/Users";
-import { USER } from "../../Models/User";
 
-export default function UserModal({
-    identifier = null,
-    show = false,
-    setShow = () => { },
-    onSuccess = () => { },
-    onError = () => { },
-    onClose = () => { },
+export default function Users_FormPage() {
 
-}) {
+    const { identifier } = useParams();
+    const navigate = useNavigate();
 
-    const [jobs, setJobs] = useState([]);
     const [user, setUser] = useState(USER);
+    const [jobs, setJobs] = useState([]);
 
     const [importing, setImporting] = useState(false);
     const [processing, setProcessing] = useState(false);
@@ -22,40 +20,18 @@ export default function UserModal({
     const [errorOnImport, setErrorOnImport] = useState(false);
     const [errorOnProcess, setErrorOnProcess] = useState(false);
 
-
-    useEffect(() => {
-
-        if (show) {
-            getJobs();
-            if (identifier) getUser();
-        }
-
-    }, [show]);
+    useEffect(() => { getJobs(); }, []);
+    useEffect(() => { getUser(); }, [identifier]);
 
     async function getJobs() {
         const result = await GetJobs();
         setJobs(result);
     }
 
-    function closeModal() {
-        setShow(false);
-        setUser(USER);
-
-        setErrorOnImport(null);
-        setErrorOnProcess(null);
-
-        setImporting(false);
-        setProcessing(false);
-
-        onClose();
-    }
-
-
     async function getUser() {
         setImporting(true);
         try {
-            const response = await GetUser(identifier);
-            const result = response.data;
+            const result = await GetUser(identifier);
             setUser({ ...result, idCargo: result.cargo.idCargo });
         } catch (error) {
             setErrorOnImport(error?.response?.data?.message || error.message);
@@ -70,15 +46,15 @@ export default function UserModal({
         try {
 
             const { nomeEmpregado, email, idCargo, senha, ativo } = user;
-            const response = identifier ?
+
+            const result = identifier ?
                 await EditUser(identifier, { nomeEmpregado, email, idCargo, senha, ativo }) :
                 await NewUser({ nomeEmpregado, email, idCargo, senha, ativo });
-            onSuccess(response.data);
-            closeModal();
+
+            navigate("/usuarios");
 
         } catch (error) {
             setErrorOnProcess(error?.response?.data?.message || error.message);
-            onError(error);
         }
 
         setProcessing(false);
@@ -86,18 +62,21 @@ export default function UserModal({
 
     }
 
-
     return (
         <>
-            {show && <div className="modal-backdrop show"></div>}
-            <div className={`modal ${show ? 'show d-block' : 'd-none'}`} tabindex="-1">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h6 className="modal-title">{identifier ? "Editar Usuário" : "Novo Usuário"}</h6>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={closeModal} />
-                        </div>
-                        <div className="modal-body">
+            <PageHeader title={identifier ? "Editar Usuário" : "Novo Usuário"}>
+
+                <button type="button" className="btn btn-primary" onClick={saveUser} disabled={processing || importing}>
+                    {processing ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" /> : <IconCheck stroke={1} />}
+                    {processing ? (identifier ? "Salvando..." : "Cadastrando...") : (identifier ? "Salvar Alterações" : "Cadastrar")}
+                </button>
+
+            </PageHeader>
+
+            <div className="row">
+                <div className="col">
+                    <div className="card">
+                        <div className="card-body">
 
                             <div className="mb-3">
                                 <label className="form-label required" htmlFor="nameInput">Nome:</label>
@@ -146,7 +125,8 @@ export default function UserModal({
                                 </select>
                             </div>
 
-                            {!identifier &&
+                            {
+                                !identifier &&
                                 <div className="mb-3">
                                     <label className="form-label required" htmlFor="passwordInput">Senha:</label>
                                     <input
@@ -179,35 +159,12 @@ export default function UserModal({
                             </div>
 
 
-                            {
-                                errorOnImport &&
-                                <div className="alert alert-warning mt-3" role="alert">
-                                    {errorOnImport}
-                                </div>
-                            }
-
-                            {
-                                errorOnProcess &&
-                                <div className="alert alert-warning mt-3" role="alert">
-                                    {errorOnProcess}
-                                </div>
-                            }
-
-                        </div>
-                        <div className="modal-footer">
-
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>
-                                Cancelar
-                            </button>
-
-                            <button type="button" className="btn btn-primary" onClick={saveUser} disabled={importing || processing}>
-                                {processing ? (identifier ? "Salvando..." : "Cadastrando...") : (identifier ? "Salvar Alterações" : "Cadastrar")}
-                            </button>
 
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
+
         </>
-    )
+    );
 }
