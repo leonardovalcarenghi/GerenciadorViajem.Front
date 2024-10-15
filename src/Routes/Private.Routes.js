@@ -3,7 +3,7 @@ import Root from "../Pages/Root";
 import HomePage from "../Pages/Home";
 
 import TravelsPage from "../Pages/Travels";
-import JobsPage from "../Pages/Jobs";
+
 
 import ReportPage from "../Pages/Reports";
 
@@ -19,6 +19,10 @@ import FederativeUnits_Form from "../Pages/FederativeUnits/Form";
 // Cidades
 import Cities_IndexPage from "../Pages/Cities/Index";
 import Cities_FormPage from "../Pages/Cities/Form";
+
+// Cargos
+import Jobs_IndexPage from "../Pages/Jobs/Index";
+import Jobs_FormPage from "../Pages/Jobs/Form";
 
 
 export const PrivateRoutes = createBrowserRouter([
@@ -73,14 +77,25 @@ export const PrivateRoutes = createBrowserRouter([
                 element: <Cities_FormPage />
             },
 
+            // Cargos ---------------------------------------------------------
+            {
+                path: "/cargos",
+                element: <Jobs_IndexPage />
+            },
+            {
+                path: "/cargos/novo",
+                element: <Jobs_FormPage />
+            },
+            {
+                path: "/cargos/editar/:identifier",
+                element: <Jobs_FormPage />
+            },
+
+            // -------------------------------------
 
             {
                 path: "/viagens",
                 element: <TravelsPage />
-            },
-            {
-                path: "/cargos",
-                element: <JobsPage />
             },
 
 
