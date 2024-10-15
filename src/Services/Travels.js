@@ -31,9 +31,10 @@ export const GetTravel = (id = 0) => axios.get(`/viagens/${id}`);
 
 /**
  * Obter todos as viajens cadastrados para um usuário.
+ * @param {*} userID Identificador do usuário.
  * @returns 
  */
-export const GetTravels = (userId) => axios.get(`/viagens/empregado/${userId}`);
+export const GetTravels = (userID) => axios.get(`/viagens/empregado/${userID}`);
 
 /**
  * Obter PDF da viajem.

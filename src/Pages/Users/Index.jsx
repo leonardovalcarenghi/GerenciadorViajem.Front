@@ -11,7 +11,6 @@ export default function Users_IndexPage() {
     const [userID, setUserID] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
-
     const [importingUsers, setImportingUsers] = useState(false);
     const [errorOnImport, setErrorOnImport] = useState();
 

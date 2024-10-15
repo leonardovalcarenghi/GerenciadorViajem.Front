@@ -31,9 +31,7 @@ export default function Cities_IndexPage() {
 
     return (
         <>
-
             <PageHeader title="Cidades">
-
                 <div className="row justify-content-end">
                     <div className="col-auto">
                         <Link className="btn btn-primary" to={"/cidades/novo"}>
@@ -42,7 +40,6 @@ export default function Cities_IndexPage() {
                         </Link>
                     </div>
                 </div>
-
             </PageHeader>
 
             <div className="row">
