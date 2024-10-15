@@ -33,4 +33,4 @@ export const GetCity = (id = 0) => axios.get(`/municipios/${id}`);
  * Obter todas as cidades cadastradas.
  * @returns 
  */
-export const GetCities = () => axios.get('/municipios');
+export const GetCities = (federativeUnitID = 1) => axios.get(`/municipios/unidade-federativa/${federativeUnitID}`);

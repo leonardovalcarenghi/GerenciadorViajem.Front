@@ -115,29 +115,6 @@ export default function Cities_FormPage() {
                                 </div>
                             </div>
 
-                            <div className="row">
-                                <div className="col">
-                                    <div className="form-check form-switch">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            role="switch"
-                                            id="ativoSwitch"
-                                            required
-                                            disabled={processing || importing}
-                                            value={city.ativo}
-                                            onChange={({ target }) => setCity(_ => ({ ..._, ativo: target.checked }))}
-                                        />
-                                        <label className="form-check-label" htmlFor="ativoSwitch">
-                                            {city.ativo ? "Ativo" : "Inativo"}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
                         </div>
                     </div>
                 </div>

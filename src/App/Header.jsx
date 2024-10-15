@@ -1,4 +1,4 @@
-import { IconBriefcase2, IconBuildingCommunity, IconHome, IconMap, IconPlaneTilt, IconReport, IconUsers } from "@tabler/icons-react";
+import { IconBriefcase2, IconBuildingCommunity, IconHome, IconMap, IconMapPin, IconPlaneTilt, IconReport, IconUsers } from "@tabler/icons-react";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
@@ -68,7 +68,7 @@ export default function Header() {
 
                                 <li className="nav-item">
                                     <NavLink to={"/cidades"} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-                                        <IconBuildingCommunity />
+                                        <IconMapPin />
                                         Cidades
                                     </NavLink>
                                 </li>
