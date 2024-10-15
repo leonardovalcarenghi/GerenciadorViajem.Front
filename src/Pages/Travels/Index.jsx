@@ -27,7 +27,7 @@ export default function Travels_IndexPage() {
                 <div className="col">
                     <div className="card">
                         <div className="card-body">
-                            <div className="table-responsive">
+                            <div className="table-responsive-sm">
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
