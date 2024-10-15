@@ -20,7 +20,9 @@ export default function LoginPage() {
             localStorage["authorization"] = result.token;
             axios.defaults.headers.common['Authorization'] = `Bearer ${result.token}`;
 
-            window.location.href = "/";
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectTo = urlParams.get('redirectTo') || "/";
+            window.location.href = redirectTo;
 
 
         } catch (error) {

@@ -22,9 +22,12 @@ function App() {
 
       // Verifica se o status é 401 (não autorizado)      
       if (error.response && error.response.status === 401) {
-        setAuthorization(null);
-        localStorage.removeItem('authorization');
-        window.location.href = '/login';
+  
+        delete localStorage["authorization"];
+        sessionStorage["authorizationExpired"] = "authorizationExpired";
+        const redirectTo = encodeURIComponent(window.location.pathname)
+        window.location.href = `/login?redirectTo=${redirectTo}`;
+         
       }
 
       // Retorna a Promise rejeitada para que outros handlers possam manipular o erro
