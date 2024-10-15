@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import PageHeader from "../../Components/Header";
 import { IconBuildingAirport, IconCheck, IconPlaneArrival, IconPlus, IconTrash } from "@tabler/icons-react";
 import { GetFederativeUnits } from "../../Services/FederativeUnits";
+import TravelDestination from "../../Components/Travels/Destination";
 
 export default function Travels_FormPage() {
 
@@ -27,8 +28,14 @@ export default function Travels_FormPage() {
     useEffect(() => { getTravel(); }, [identifier]);
 
     async function getFederativeUnits() {
-        const result = await GetFederativeUnits();
-        setFederativeUnits(result);
+        try {
+            const result = await GetFederativeUnits();
+            setFederativeUnits(result);
+        }
+        catch (error) {
+
+        }
+
     }
 
     async function getTravel() {
@@ -101,10 +108,14 @@ export default function Travels_FormPage() {
         <>
             <PageHeader title={identifier ? "Editar Viagem" : "Nova Viagem"}>
 
-                <button type="button" className="btn btn-primary" onClick={saveTravel} disabled={processing || importing}>
-                    {processing ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" /> : <IconCheck stroke={1} />}
-                    {processing ? (identifier ? "Salvando..." : "Cadastrando...") : (identifier ? "Salvar Alterações" : "Cadastrar")}
-                </button>
+                <div className="row justify-content-end">
+                    <div className="col-auto">
+                        <button type="button" className="btn btn-primary" onClick={saveTravel} disabled={processing || importing}>
+                            {processing ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" /> : <IconCheck stroke={1} />}
+                            {processing ? (identifier ? "Salvando..." : "Cadastrando...") : (identifier ? "Salvar Alterações" : "Cadastrar")}
+                        </button>
+                    </div>
+                </div>
 
             </PageHeader>
 
@@ -151,88 +162,13 @@ export default function Travels_FormPage() {
             {travel.destinos.map((destination, index) => (
                 <div className="row mb-3" key={index} ref={index === travel.destinos.length - 1 ? lastDestinationRef : null}>
                     <div className="col">
-                        <div className="card border-success" >
-                            <div className="card-header">
-                                <div className="row align-items-center">
-                                    <div className="col">
-                                        <h6 className="card-title text-uppercase mb-0">
-                                            <IconPlaneArrival className="me-2" size={36} stroke={1} />
-                                            Destino {index + 1}
-                                        </h6>
-                                    </div>
-                                    <div className="col">
-                                        <button type="button" className="btn btn-sm float-end px-2" onClick={() => removeDestination(index)}>
-                                            <IconTrash className="icon" stroke={1} />
-                                            Remover Destino
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-body">
-                                <div className="row mb-3">
-                                    <div className="col">
-                                        <label className="form-label required" htmlFor={`uf_${index}`}>Unidade Federativa:</label>
-                                        <select
-                                            id={`uf_${index}`}
-                                            className="form-select"
-                                            value={destination.idMunicipioDestino}
-                                            onChange={(e) => updateDestination(index, 'idMunicipioDestino', e.target.value)}
-                                        >
-                                            {/* Opções de UF */}
-                                        </select>
-                                    </div>
-                                    <div className="col">
-                                        <label className="form-label required" htmlFor={`cidade_${index}`}>Cidade:</label>
-                                        <select
-                                            id={`cidade_${index}`}
-                                            className="form-select"
-                                            value={destination.idMunicipioDestino}
-                                            onChange={(e) => updateDestination(index, 'idMunicipioDestino', e.target.value)}
-                                        >
-                                            {/* Opções de Cidade */}
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="row mb-3">
-                                    <div className="col">
-                                        <label className="form-label required" htmlFor={`data_${index}`}>Data:</label>
-                                        <input
-                                            type="date"
-                                            id={`data_${index}`}
-                                            className="form-control"
-                                            value={destination.DataDestinoViagem}
-                                            onChange={(e) => updateDestination(index, 'DataDestinoViagem', e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-12 mb-2">
-                                        <h6 className="text-uppercase">Custos</h6>
-                                    </div>
-                                    <div className="col">
-                                        <table className="table table-bordered">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Passagem</td>
-                                                    <td>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            placeholder="R$ 0,00"
-                                                            value={destination.custo?.ValorCustoDestino || ''}
-                                                            onChange={(e) => updateCost(index, e.target.value)}
-                                                        />
-                                                    </td>
-                                                </tr>
-                                                {/* Outros campos de custos */}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <TravelDestination
+                            {...destination}
+                            index={index}
+                            updateDestination={updateDestination}
+                            updateCost={updateCost}
+                            removeDestination={removeDestination}
+                        />
                     </div>
                 </div>
             ))}

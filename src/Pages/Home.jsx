@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function HomePage() {
     return (
         <>
-            <PageHeader />
+            <PageHeader title="Início" />
 
             <div className="row">
                 <div className="col-12">

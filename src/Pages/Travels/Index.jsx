@@ -66,12 +66,12 @@ export default function Travels_IndexPage() {
     return (
         <>
 
-            <PageHeader title="Viagens">
+            <PageHeader title="Viagens" titleRow>
                 <div className="row justify-content-end">
 
                     {
                         (user?.cargo?.idCargo == 1 || user?.cargo?.idCargo == 3) &&
-                        <div className="col-5">
+                        <div className="col col-lg-5">
                             <div className="input-group flex-nowrap">
                                 <span className="input-group-text" id="addon-wrapping">
                                     <IconUser stroke={1} size={26} />
@@ -163,10 +163,12 @@ export default function Travels_IndexPage() {
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col" className="small text-muted text-uppercase">Destino</th>
+                                            <th scope="col" className="small text-muted text-uppercase">Origem</th>
+                                            <th scope="col" className="small text-muted text-uppercase text-center">Nº Destinos</th>
                                             <th scope="col" className="small text-muted text-uppercase text-center">Data Inicio</th>
                                             <th scope="col" className="small text-muted text-uppercase text-center">Data Final</th>
-                                            <th scope="col" className="small text-muted text-uppercase text-center">Usuário/Empregado</th>
+                                            <th scope="col" className="small text-muted text-uppercase text-center">Custo Total</th>
+                                            <th scope="col" className="small text-muted text-uppercase text-center">Status</th>
                                             <th scope="col" />
                                         </tr>
                                     </thead>
@@ -177,15 +179,19 @@ export default function Travels_IndexPage() {
                                                 <div className="d-flex align-items-center">
                                                     <IconPlaneTilt stroke={1} size={38} />
                                                     <div className="position-relative d-flex flex-column ms-2">
-                                                        <span className="d-inline-block">Destino</span>
-                                                        <small className="text-muted">leonardo.valcarenghi@gmail.com</small>
+                                                        <span className="d-inline-block">Porto Alegre - RS</span>
+                                                        <small className="text-muted">oq por aqui?</small>
                                                     </div>
                                                 </div>
                                             </td>
 
+                                            <td className="text-center">5 Destinos</td>
                                             <td className="text-center">01/01/9999</td>
                                             <td className="text-center">01/01/9999</td>
-                                            <td className="text-center">Leonardo Valcarenghi</td>
+                                            <td className="text-center">R$ 9.999,99</td>
+                                            <td className="text-center">
+                                                <span className="badge rounded-pill text-bg-danger">Rejeitado</span>
+                                            </td>
 
                                             <td className="text-end">
 

@@ -24,8 +24,13 @@ export default function Cities_FormPage() {
     useEffect(() => { getCity(); }, [identifier]);
 
     async function getFederativeUnits() {
-        const result = await GetFederativeUnits();
-        setFederativeUnits(result);
+        try {
+            const result = await GetFederativeUnits();
+            setFederativeUnits(result);
+        } catch (error) {
+
+        }
+
     }
 
     async function getCity() {
@@ -62,12 +67,14 @@ export default function Cities_FormPage() {
     return (
         <>
             <PageHeader title={identifier ? "Editar Cidade" : "Nova Cidade"}>
-
-                <button type="button" className="btn btn-primary" onClick={saveCity} disabled={processing || importing}>
-                    {processing ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" /> : <IconCheck stroke={1} />}
-                    {processing ? (identifier ? "Salvando..." : "Cadastrando...") : (identifier ? "Salvar Alterações" : "Cadastrar")}
-                </button>
-
+                <div className="row justify-content-end">
+                    <div className="col-auto">
+                        <button type="button" className="btn btn-primary" onClick={saveCity} disabled={processing || importing}>
+                            {processing ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" /> : <IconCheck stroke={1} />}
+                            {processing ? (identifier ? "Salvando..." : "Cadastrando...") : (identifier ? "Salvar Alterações" : "Cadastrar")}
+                        </button>
+                    </div>
+                </div>
             </PageHeader>
 
             <div className="row">

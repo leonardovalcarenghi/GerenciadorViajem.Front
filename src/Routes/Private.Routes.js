@@ -2,12 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "../Pages/Root";
 import HomePage from "../Pages/Home";
 
-
-
-
-import ReportPage from "../Pages/Reports";
-
-
 // Usuários
 import Users_Index from "../Pages/Users/Index";
 import Users_Form from "../Pages/Users/Form";
@@ -109,16 +103,6 @@ export const PrivateRoutes = createBrowserRouter([
                 element: <Travels_FormPage />
             },
 
-
-
-            // -------------------------------------
-
-
-
-            {
-                path: "/relatorios",
-                element: <ReportPage />
-            },
         ]
     }
 
