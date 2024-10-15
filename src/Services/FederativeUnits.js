@@ -5,7 +5,7 @@ import axios from 'axios';
  * @param {*} data Modelo.
  * @returns 
  */
-export const NewJob = (data = {}) => axios.post('/unidadeFederativa/cadastrar', data);
+export const NewFederativeUnit = (data = {}) => axios.post('/unidadeFederativa/cadastrar', data);
 
 /**
  * Editar unidade federativa.
@@ -13,14 +13,14 @@ export const NewJob = (data = {}) => axios.post('/unidadeFederativa/cadastrar', 
  * @param {*} data Modelo.
  * @returns 
  */
-export const EditJob = (id = 0, data = {}) => axios.put(`/unidadeFederativa/${id}`, data);
+export const EditFederativeUnit = (id = 0, data = {}) => axios.put(`/unidadeFederativa/${id}`, data);
 
 /**
  * Excluir unidade federativa.
  * @param {*} id Identificador da unidade.
  * @returns 
  */
-export const DeleteJob = (id = 0) => axios.delete(`/unidadeFederativa/${id}`);
+export const DeleteFederativeUnit = (id = 0) => axios.delete(`/unidadeFederativa/${id}`);
 
 /**
  * Obter uma unidade federativa específica.

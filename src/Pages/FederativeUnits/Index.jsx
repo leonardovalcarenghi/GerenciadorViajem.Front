@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import PageHeader from "./Components/Header";
+import PageHeader from "../Components/Header";
 import { IconMap, IconPlus } from "@tabler/icons-react";
-import { GetFederativeUnits } from "../Services/FederativeUnits";
-import Spinner from "./Components/Spinner";
+import { GetFederativeUnits } from "../../Services/FederativeUnits";
+import Spinner from "../Components/Spinner";
+import { Link } from "react-router-dom";
 
-export default function FederativeUnitsPage() {
+export default function FederativeUnits_IndexPage() {
 
     const [units, setUnits] = useState([]);
     const [unitID, setUnitID] = useState([]);
@@ -23,10 +24,10 @@ export default function FederativeUnitsPage() {
     return (
         <>
             <PageHeader title="Unidades Federativas">
-                <button type="button" className="btn btn-primary">
+                <Link className="btn btn-primary" to={"/unidades-federativas/novo"}>
                     <IconPlus stroke={1} />
-                    Novo
-                </button>
+                    Nova Unidade Federativa
+                </Link>
             </PageHeader>
 
 
@@ -52,7 +53,9 @@ export default function FederativeUnitsPage() {
                                                             <div className="d-flex align-items-center">
                                                                 <IconMap stroke={1} size={38} />
                                                                 <div className="position-relative d-flex flex-column ms-2">
-                                                                    <span className="d-inline-block">{unit.NomeUnidadeFederativa}</span>
+                                                                    <Link to={`/unidades-federativas/editar/${unit.idUnidadeFederativa}`}>
+                                                                        <span className="d-inline-block">{unit.NomeUnidadeFederativa}</span>
+                                                                    </Link>
                                                                     <small className="text-muted">{unit.SiglaUnidadeFederativa}</small>
                                                                 </div>
                                                             </div>
@@ -66,8 +69,14 @@ export default function FederativeUnitsPage() {
                                                             <div className="dropdown">
                                                                 <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
                                                                 <ul className="dropdown-menu dropdown-menu-end">
-                                                                    <li><a className="dropdown-item" onClick={() => setUnitID(unit.idCargo)}>Editar</a></li>
-                                                                    <li><a className="dropdown-item" onClick={() => setUnitID(unit.idCargo)}>Excluir</a></li>
+                                                                    <li>
+                                                                        <Link className="dropdown-item" to={`/unidades-federativas/editar/${unit.idUnidadeFederativa}`}>
+                                                                            Editar
+                                                                        </Link>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a className="dropdown-item" onClick={() => setUnitID(unit.idCargo)}>Excluir</a>
+                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                         </td>
