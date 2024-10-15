@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import PageHeader from "../../Components/Header";
-import { IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash, IconUser } from "@tabler/icons-react";
+import { IconChartPie, IconCheck, IconClipboardCheck, IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash, IconUser, IconX } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
 import { GetTravels } from "../../Services/Travels";
@@ -94,6 +94,67 @@ export default function Travels_IndexPage() {
 
             </PageHeader>
 
+            {/* DASHBOARD */}
+
+            <div className="row">
+                <div className="col-lg-3 col-md-6">
+                    <div className="card text-white bg-primary mb-3">
+                        <div className="card-body">
+                            <div className="d-flex align-items-center">
+                                <IconChartPie size={56} className="me-3" />
+                                <div>
+                                    <h5 className="card-title mb-0">Total</h5>
+                                    <p className="card-text fs-4">{0}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-lg-3 col-md-6">
+                    <div className="card text-white bg-success mb-3">
+                        <div className="card-body">
+                            <div className="d-flex align-items-center">
+                                <IconCheck size={56} className="me-3" />
+                                <div>
+                                    <h5 className="card-title mb-0">Aprovadas</h5>
+                                    <p className="card-text fs-4">{0}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-lg-3 col-md-6">
+                    <div className="card text-white bg-danger mb-3">
+                        <div className="card-body">
+                            <div className="d-flex align-items-center">
+                                <IconX size={56} className="me-3" />
+                                <div>
+                                    <h5 className="card-title mb-0">Rejeitadas</h5>
+                                    <p className="card-text fs-4">{0}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-lg-3 col-md-6">
+                    <div className="card text-white bg-warning mb-3">
+                        <div className="card-body">
+                            <div className="d-flex align-items-center">
+                                <IconClipboardCheck size={56} stroke={1.5} className="me-3" />
+                                <div>
+                                    <h5 className="card-title mb-0">Concluídas</h5>
+                                    <p className="card-text fs-4">{0}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* LISTAGEM */}
             <div className="row">
                 <div className="col">
                     <div className="card">
