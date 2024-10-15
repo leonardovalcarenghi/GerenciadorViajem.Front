@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PageHeader from "../../Components/Header";
-import { IconMap, IconPlus } from "@tabler/icons-react";
+import { IconMap, IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
 import { GetFederativeUnits } from "../../Services/FederativeUnits";
 import Spinner from "../../Components/Spinner";
 import { Link } from "react-router-dom";
@@ -86,11 +86,15 @@ export default function FederativeUnits_IndexPage() {
                                                                         <ul className="dropdown-menu dropdown-menu-end">
                                                                             <li>
                                                                                 <Link className="dropdown-item" to={`/unidades-federativas/editar/${unit.idUnidadeFederativa}`}>
+                                                                                    <IconPencil className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                     Editar
                                                                                 </Link>
                                                                             </li>
                                                                             <li>
-                                                                                <a className="dropdown-item" onClick={() => setUnitID(unit.idCargo)}>Excluir</a>
+                                                                                <a className="dropdown-item">
+                                                                                    <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                                    Excluir
+                                                                                </a>
                                                                             </li>
                                                                         </ul>
                                                                     </div>

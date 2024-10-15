@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PageHeader from "../../Components/Header";
-import { IconPlaneTilt, IconPlus } from "@tabler/icons-react";
+import { IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
 export default function Travels_IndexPage() {
@@ -27,7 +27,7 @@ export default function Travels_IndexPage() {
                 <div className="col">
                     <div className="card">
                         <div className="card-body">
-                            <div className="table-responsive-sm">
+                            <div className="table-responsive-lg">
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
@@ -56,11 +56,33 @@ export default function Travels_IndexPage() {
                                             <td className="text-center">Leonardo Valcarenghi</td>
 
                                             <td className="text-end">
-                                                <div class="dropdown">
+
+                                                <div className="d-flex d-lg-none">
+
+                                                    <Link class="btn btn-outline-secondary px-2 rounded-5 me-1" to={`/viagens/editar/${"123"}`}>
+                                                        <IconPencil className="px-0 mx-0" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                    </Link>
+
+                                                    <button class="btn btn-outline-secondary px-2 rounded-5" >
+                                                        <IconTrash className="px-0 mx-0" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                    </button>
+                                                </div>
+
+                                                <div class="dropdown d-none d-lg-block">
                                                     <button class="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item" href="#">Editar</a></li>
-                                                        <li><a class="dropdown-item" href="#">Excluir</a></li>
+                                                        <li>
+                                                            <Link class="dropdown-item" to={`/viagens/editar/${"123"}`}>
+                                                                <IconPencil className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                Editar
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                Excluir
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>

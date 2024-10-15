@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { GetCities } from "../../Services/Cities";
 import PageHeader from "../../Components/Header";
-import { IconBuilding, IconBuildingAirport, IconBuildingArch, IconBuildingBank, IconBuildingBridge, IconBuildingCommunity, IconPlus } from "@tabler/icons-react";
+import { IconBuilding, IconBuildingAirport, IconBuildingArch, IconBuildingBank, IconBuildingBridge, IconBuildingCommunity, IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
 import Spinner from "../../Components/Spinner";
 import { Link } from "react-router-dom";
 
@@ -84,8 +84,18 @@ export default function Cities_IndexPage() {
                                                                     <div className="dropdown">
                                                                         <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
                                                                         <ul className="dropdown-menu dropdown-menu-end">
-                                                                            <li><Link className="dropdown-item" to={`/cidades/editar/${city.idMunicipio}`}>Editar</Link></li>
-                                                                            <li><a className="dropdown-item" onClick={() => setCityID(city.idMunicipio)}>Excluir</a></li>
+                                                                            <li>
+                                                                                <Link className="dropdown-item" to={`/cidades/editar/${city.idMunicipio}`}>
+                                                                                    <IconPencil className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                                    Editar
+                                                                                </Link>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a className="dropdown-item">
+                                                                                    <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                                    Excluir
+                                                                                </a>
+                                                                            </li>
                                                                         </ul>
                                                                     </div>
                                                                 </td>

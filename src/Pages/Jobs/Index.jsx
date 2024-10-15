@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IconBriefcase2, IconPlus } from "@tabler/icons-react";
+import { IconBriefcase2, IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
 import { GetJobs } from "../../Services/Jobs";
 import Spinner from "../../Components/Spinner";
 import PageHeader from "../../Components/Header";
@@ -84,8 +84,18 @@ export default function Jobs_IndexPage() {
                                                                     <div className="dropdown">
                                                                         <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
                                                                         <ul className="dropdown-menu dropdown-menu-end">
-                                                                            <li><Link className="dropdown-item" to={`/cargos/editar/${job.idCargo}`}>Editar</Link></li>
-                                                                            <li><a className="dropdown-item" onClick={() => setJobID(job.idCargo)}>Excluir</a></li>
+                                                                            <li>
+                                                                                <Link className="dropdown-item" to={`/cargos/editar/${job.idCargo}`}>
+                                                                                    <IconPencil className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                                    Editar
+                                                                                </Link>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a className="dropdown-item">
+                                                                                    <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                                    Excluir
+                                                                                </a>
+                                                                            </li>
                                                                         </ul>
                                                                     </div>
                                                                 </td>

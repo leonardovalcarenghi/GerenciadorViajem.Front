@@ -1,4 +1,4 @@
-import { IconPlus, IconUser } from "@tabler/icons-react";
+import { IconPencil, IconPlus, IconTrash, IconUser } from "@tabler/icons-react";
 import { useEffect, useState } from "react"
 import PageHeader from "../../Components/Header";
 import { GetUsers } from "../../Services/Users";
@@ -95,10 +95,16 @@ export default function Users_IndexPage() {
                                                                         <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
                                                                         <ul className="dropdown-menu dropdown-menu-end">
                                                                             <li>
-                                                                                <Link className="dropdown-item" to={`/usuarios/editar/${user.idEmpregado}`}>Editar</Link>
+                                                                                <Link className="dropdown-item" to={`/usuarios/editar/${user.idEmpregado}`}>
+                                                                                    <IconPencil className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                                    Editar
+                                                                                </Link>
                                                                             </li>
                                                                             <li>
-                                                                                <a className="dropdown-item" onClick={() => setUserID(user.idEmpregado)}>Excluir</a>
+                                                                                <a className="dropdown-item">
+                                                                                    <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
+                                                                                    Excluir
+                                                                                </a>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
