@@ -5,7 +5,7 @@ import axios from 'axios';
  * @param {*} data Modelo.
  * @returns 
  */
-export const NewFederativeUnit = (data = {}) => axios.post('/unidadeFederativa/cadastrar', data);
+export const NewFederativeUnit = (data = {}) => axios.post('/unidades-federativas', data);
 
 /**
  * Editar unidade federativa.
@@ -13,24 +13,24 @@ export const NewFederativeUnit = (data = {}) => axios.post('/unidadeFederativa/c
  * @param {*} data Modelo.
  * @returns 
  */
-export const EditFederativeUnit = (id = 0, data = {}) => axios.put(`/unidadeFederativa/${id}`, data);
+export const EditFederativeUnit = (id = 0, data = {}) => axios.put(`/unidades-federativas/${id}`, data);
 
 /**
  * Excluir unidade federativa.
  * @param {*} id Identificador da unidade.
  * @returns 
  */
-export const DeleteFederativeUnit = (id = 0) => axios.delete(`/unidadeFederativa/${id}`);
+export const DeleteFederativeUnit = (id = 0) => axios.delete(`/unidades-federativas/${id}`);
 
 /**
  * Obter uma unidade federativa específica.
  * @param {*} id Identificador da unidade.
  * @returns 
  */
-export const GetFederativeUnit = (id = 0) => axios.get(`/unidadeFederativa/${id}`);
+export const GetFederativeUnit = (id = 0) => axios.get(`/unidades-federativas/${id}`);
 
 /**
  * Obter todas as unidades federativas cadastradas.
  * @returns 
  */
-export const GetFederativeUnits = () => axios.get('/unidadeFederativa/listar');
+export const GetFederativeUnits = () => axios.get('/unidades-federativas');

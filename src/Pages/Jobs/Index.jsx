@@ -13,13 +13,21 @@ export default function Jobs_IndexPage() {
     const [jobID, setJobID] = useState(null);
 
     const [importingJobs, setImportingJobs] = useState(false);
+    const [errorOnImport, setErrorOnImport] = useState();
 
     useEffect(() => { getJobs(); }, []);
 
     async function getJobs() {
         setImportingJobs(true);
-        const result = await GetJobs();
-        setJobs(result);
+        setErrorOnImport(null);
+
+        try {
+            const result = await GetJobs();
+            setJobs(result);
+        } catch (error) {
+            setErrorOnImport(error?.response?.data?.message || error.message);
+        }
+
         setImportingJobs(false);
     }
 
@@ -38,49 +46,55 @@ export default function Jobs_IndexPage() {
                         <div className="card-body">
                             {
                                 importingJobs ? <Spinner /> :
-                                    <div className="table-responsive">
-                                        <table className="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" className="small text-muted text-uppercase">Cargo</th>
-                                                    <th scope="col" className="small text-muted text-uppercase text-center">Status</th>
-                                                    <th scope="col" />
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    jobs.map(job =>
-                                                        <tr key={job.idCargo} job-id={job.idCargo}>
-                                                            <td>
-                                                                <div className="d-flex align-items-center">
-                                                                    <IconBriefcase2 stroke={1} size={38} />
-                                                                    <div className="position-relative d-flex flex-column ms-2">
-                                                                        <Link to={`/cargos/editar/${job.idCargo}`}>
-                                                                            <span className="d-inline-block">{job.nomeCargo}</span>
-                                                                        </Link>
+                                    errorOnImport ?
+                                        <>
+                                            <h6 className="mb-0">Erro:</h6>
+                                            <p className="mb-0">{errorOnImport}</p>
+                                        </>
+                                        :
+                                        <div className="table-responsive">
+                                            <table className="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" className="small text-muted text-uppercase">Cargo</th>
+                                                        <th scope="col" className="small text-muted text-uppercase text-center">Status</th>
+                                                        <th scope="col" />
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        jobs.map(job =>
+                                                            <tr key={job.idCargo} job-id={job.idCargo}>
+                                                                <td>
+                                                                    <div className="d-flex align-items-center">
+                                                                        <IconBriefcase2 stroke={1} size={38} />
+                                                                        <div className="position-relative d-flex flex-column ms-2">
+                                                                            <Link to={`/cargos/editar/${job.idCargo}`}>
+                                                                                <span className="d-inline-block">{job.nomeCargo}</span>
+                                                                            </Link>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
+                                                                </td>
 
-                                                            <td className="text-center">
-                                                                {job.ativo ? "Ativo" : "Inativo"}
-                                                            </td>
+                                                                <td className="text-center">
+                                                                    {job.ativo ? "Ativo" : "Inativo"}
+                                                                </td>
 
-                                                            <td className="text-end">
-                                                                <div className="dropdown">
-                                                                    <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
-                                                                    <ul className="dropdown-menu dropdown-menu-end">
-                                                                        <li><Link className="dropdown-item" to={`/cargos/editar/${job.idCargo}`}>Editar</Link></li>
-                                                                        <li><a className="dropdown-item" onClick={() => setJobID(job.idCargo)}>Excluir</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                                <td className="text-end">
+                                                                    <div className="dropdown">
+                                                                        <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
+                                                                        <ul className="dropdown-menu dropdown-menu-end">
+                                                                            <li><Link className="dropdown-item" to={`/cargos/editar/${job.idCargo}`}>Editar</Link></li>
+                                                                            <li><a className="dropdown-item" onClick={() => setJobID(job.idCargo)}>Excluir</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                             }
                         </div>
                     </div>

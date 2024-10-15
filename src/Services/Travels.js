@@ -5,7 +5,7 @@ import axios from "axios";
  * @param {*} data Modelo.
  * @returns 
  */
-export const NewTravel = (data = {}) => axios.post("/viagem/cadastrar", data);
+export const NewTravel = (data = {}) => axios.post("/viagens", data);
 
 /**
  * Editar viagem.
@@ -13,31 +13,31 @@ export const NewTravel = (data = {}) => axios.post("/viagem/cadastrar", data);
  * @param {*} data Modelo.
  * @returns 
  */
-export const EditTravel = (id = 0, data = {}) => axios.put(`/viagem/atualizar/${id}`, data);
+export const EditTravel = (id = 0, data = {}) => axios.put(`/viagens/${id}`, data);
 
 /**
  * Excluir viagem.
  * @param {*} id Identificador da viagem.
  * @returns 
  */
-export const DeleteTravel = (id = 0) => axios.delete(`/viagem/excluir/${id}`);
+export const DeleteTravel = (id = 0) => axios.delete(`/viagens/${id}`);
 
 /**
  * Obter uma viagem.
  * @param {*} id Identificador da viagem.
  * @returns 
  */
-export const GetTravel = (id = 0) => axios.get(`/viagem/listar/${id}`);
+export const GetTravel = (id = 0) => axios.get(`/viagens/${id}`);
 
 /**
  * Obter todos as viajens cadastrados para um usuário.
  * @returns 
  */
-export const GetTravels = (userId) => axios.get(`/viagem/listar/${userId}`);
+export const GetTravels = (userId) => axios.get(`/viagens/empregado/${userId}`);
 
 /**
  * Obter PDF da viajem.
  * @param {*} id Identificador da viagem.
  * @returns 
  */
-export const GetTravelPDF = (id) => axios.get(`/viagem/exportar-pdf/${id}`);
+export const GetTravelPDF = (id) => axios.get(`/viagens/${id}/exportar-pdf`);
