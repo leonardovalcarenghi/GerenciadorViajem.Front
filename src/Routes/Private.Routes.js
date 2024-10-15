@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "../Pages/Root";
 import HomePage from "../Pages/Home";
 
-import TravelsPage from "../Pages/Travels";
+
 
 
 import ReportPage from "../Pages/Reports";
@@ -23,6 +23,10 @@ import Cities_FormPage from "../Pages/Cities/Form";
 // Cargos
 import Jobs_IndexPage from "../Pages/Jobs/Index";
 import Jobs_FormPage from "../Pages/Jobs/Form";
+
+// Viagens 
+import Travels_IndexPage from "../Pages/Travels/Index";
+import Travels_FormPage from "../Pages/Travels/Form";
 
 
 export const PrivateRoutes = createBrowserRouter([
@@ -91,12 +95,24 @@ export const PrivateRoutes = createBrowserRouter([
                 element: <Jobs_FormPage />
             },
 
-            // -------------------------------------
-
+            // Viagens ---------------------------------------------------------
             {
                 path: "/viagens",
-                element: <TravelsPage />
+                element: <Travels_IndexPage />
             },
+            {
+                path: "/viagens/novo",
+                element: <Travels_FormPage />
+            },
+            {
+                path: "/viagens/editar/:identifier",
+                element: <Travels_FormPage />
+            },
+
+
+
+            // -------------------------------------
+
 
 
             {
