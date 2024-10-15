@@ -3,6 +3,7 @@ import { GetCities } from "../Services/Cities";
 import { GetJobs } from "../Services/Jobs";
 import { GetUsers } from "../Services/Users";
 import PageHeader from "../Components/Header";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
 
@@ -22,108 +23,25 @@ export default function HomePage() {
 
     return (
         <>
-            <PageHeader title="Início" />
+            <PageHeader title="" />
 
 
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="card text-white bg-primary mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Usuários</h5>
-                            <p class="card-text">{dashboard.users}</p>
+            <div className="row">
+                <div className="col-12">
+                    <div className="card">
+                        <div className="card-body">
+                            <h5 className="card-title">Seja bem-vindo(a)!</h5>
+                            <p className="card-text">
+                                Para gerenciar suas viagens clique no botão abaixo ou acesse diretamente o item no menu superior.
+                            </p>
+                            <Link to={"/viagens"} className="btn btn-primary">
+                                Gerenciar Viagens
+                            </Link>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6">
-                    <div class="card text-white bg-success mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Cargos</h5>
-                            <p class="card-text">{dashboard.jobs}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="card text-white bg-warning mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Viagens</h5>
-                            <p class="card-text">15</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="card text-white bg-danger mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Cidades</h5>
-                            <p class="card-text">{dashboard.cities}</p>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Gráfico de Vendas</h5>
-                            <p class="card-text">Aqui pode inserir um gráfico usando uma biblioteca de JavaScript.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Últimos Comentários</h5>
-                            <p class="card-text">Exemplo de lista de comentários recentes.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div className="mt-4">
-                <h5>Progresso dos Projetos</h5>
-                <div className="progress mb-3">
-                    <div
-                        className="progress-bar bg-success"
-                        role="progressbar"
-                        style={{ width: "70%" }}
-                        aria-valuenow={70}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                    >
-                        70%
-                    </div>
-                </div>
-                <div className="progress mb-3">
-                    <div
-                        className="progress-bar bg-warning"
-                        role="progressbar"
-                        style={{ width: "50%" }}
-                        aria-valuenow={50}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                    >
-                        50%
-                    </div>
-                </div>
-                <div className="progress mb-3">
-                    <div
-                        className="progress-bar bg-danger"
-                        role="progressbar"
-                        style={{ width: "30%" }}
-                        aria-valuenow={30}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                    >
-                        30%
-                    </div>
-                </div>
-            </div>
-
 
 
 
