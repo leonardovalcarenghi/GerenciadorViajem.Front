@@ -1,30 +1,10 @@
-import { useEffect, useState } from "react";
-import { GetCities } from "../Services/Cities";
-import { GetJobs } from "../Services/Jobs";
-import { GetUsers } from "../Services/Users";
 import PageHeader from "../Components/Header";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
-
-    const [dashboard, setDashboard] = useState({ users: 0, jobs: 0, cities: 0 });
-
-    useEffect(() => { getDashboard() }, []);
-
-    async function getDashboard() {
-
-        // const users = await GetUsers()?.length || 0;
-        // const jobs = await GetJobs()?.length || 0;
-        // const cities = await GetCities()?.length || 0;
-
-        // setDashboard({ users, jobs, cities });
-
-    }
-
     return (
         <>
-            <PageHeader title="" />
-
+            <PageHeader />
 
             <div className="row">
                 <div className="col-12">
@@ -40,12 +20,7 @@ export default function HomePage() {
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
-
-
         </>
     );
 }
