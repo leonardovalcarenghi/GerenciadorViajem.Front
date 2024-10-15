@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PageHeader from "./Components/Header";
+import PageHeader from "../Components/Header";
 import { IconPlaneTilt, IconPlus } from "@tabler/icons-react";
 
 export default function TravelsPage() {

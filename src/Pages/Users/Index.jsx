@@ -1,8 +1,8 @@
 import { IconPlus, IconUser } from "@tabler/icons-react";
 import { useEffect, useState } from "react"
-import PageHeader from "../Components/Header";
+import PageHeader from "../../Components/Header";
 import { GetUsers } from "../../Services/Users";
-import Spinner from "../Components/Spinner";
+import Spinner from "../../Components/Spinner";
 import { Link } from "react-router-dom";
 
 export default function Users_IndexPage() {

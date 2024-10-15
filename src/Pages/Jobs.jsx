@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import PageHeader from "./Components/Header";
+import PageHeader from "../Components/Header";
 import { IconBriefcase2, IconPlus } from "@tabler/icons-react";
 import { GetJobs } from "../Services/Jobs";
-import Spinner from "./Components/Spinner";
+import Spinner from "../Components/Spinner";
 
 export default function JobsPage() {
 

@@ -1,5 +1,5 @@
 import { IconCheck } from "@tabler/icons-react";
-import PageHeader from "../Components/Header";
+import PageHeader from "../../Components/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { USER } from "../../Models/User";

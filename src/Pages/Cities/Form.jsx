@@ -1,16 +1,18 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { FEDERATIVE_UNIT } from "../../Models/FederativeUnit";
-import { useEffect, useState } from "react";
 import PageHeader from "../../Components/Header";
+import { useEffect, useState } from "react";
+import { CITY } from "../../Models/City";
+import { EditCity, GetCity, NewCity } from "../../Services/Cities";
 import { IconCheck } from "@tabler/icons-react";
-import { EditFederativeUnit, GetFederativeUnit, NewFederativeUnit } from "../../Services/FederativeUnits";
+import { GetFederativeUnits } from "../../Services/FederativeUnits";
 
-export default function FederativeUnits_FormPage() {
+export default function Cities_FormPage() {
 
     const { identifier } = useParams();
     const navigate = useNavigate();
 
-    const [federativeUnit, setFederativeUnit] = useState(FEDERATIVE_UNIT);
+    const [city, setCity] = useState(CITY);
+    const [federativeUnits, setFederativeUnits] = useState([]);
 
     const [importing, setImporting] = useState(false);
     const [processing, setProcessing] = useState(false);
@@ -18,31 +20,37 @@ export default function FederativeUnits_FormPage() {
     const [errorOnImport, setErrorOnImport] = useState(false);
     const [errorOnProcess, setErrorOnProcess] = useState(false);
 
-    useEffect(() => { getFederativeUnit(); }, [identifier]);
+    useEffect(() => { getFederativeUnits(); }, []);
+    useEffect(() => { getCity(); }, [identifier]);
 
-    async function getFederativeUnit() {
+    async function getFederativeUnits() {
+        const result = await GetFederativeUnits();
+        setFederativeUnits(result);
+    }
+
+    async function getCity() {
         setImporting(true);
         try {
-            const result = await GetFederativeUnit(identifier);
-            setFederativeUnit(result);
+            const result = await GetCity(identifier);
+            setCity(result);
         } catch (error) {
             setErrorOnImport(error?.response?.data?.message || error.message);
         }
         setImporting(false);
     }
 
-    async function saveFederativeUnit() {
+    async function saveCity() {
         setProcessing(true);
 
         try {
 
-            const { NomeUnidadeFederativa, SiglaUnidadeFederativa, ativo } = federativeUnit;
+            const { NomeMunicipio, idUnidadeFederativa, ativo } = city;
 
             const result = identifier ?
-                await EditFederativeUnit(identifier, { NomeUnidadeFederativa, SiglaUnidadeFederativa, ativo }) :
-                await NewFederativeUnit({ NomeUnidadeFederativa, SiglaUnidadeFederativa, ativo });
+                await EditCity(identifier, { NomeMunicipio, idUnidadeFederativa, ativo }) :
+                await NewCity({ NomeMunicipio, idUnidadeFederativa, ativo });
 
-            navigate("/unidades-federativas");
+            navigate("/cidades");
 
         } catch (error) {
             setErrorOnProcess(error?.response?.data?.message || error.message);
@@ -53,15 +61,14 @@ export default function FederativeUnits_FormPage() {
 
     return (
         <>
-            <PageHeader title={identifier ? "Editar Unidade Federativa" : "Nova Unidade Federativa"}>
+            <PageHeader title={identifier ? "Editar Cidade" : "Nova Cidade"}>
 
-                <button type="button" className="btn btn-primary" onClick={saveFederativeUnit} disabled={processing || importing}>
+                <button type="button" className="btn btn-primary" onClick={saveCity} disabled={processing || importing}>
                     {processing ? <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" /> : <IconCheck stroke={1} />}
                     {processing ? (identifier ? "Salvando..." : "Cadastrando...") : (identifier ? "Salvar Alterações" : "Cadastrar")}
                 </button>
 
             </PageHeader>
-
 
             <div className="row">
                 <div className="col">
@@ -75,25 +82,29 @@ export default function FederativeUnits_FormPage() {
                                         type="text"
                                         className="form-control"
                                         id="nameInput"
-                                        placeholder="Digite o nome da unidade federativa..."
+                                        placeholder="Digite o nome da cidade..."
                                         required
                                         disabled={processing || importing}
-                                        value={federativeUnit.NomeUnidadeFederativa}
-                                        onChange={({ target }) => setFederativeUnit(_ => ({ ..._, NomeUnidadeFederativa: target.value }))}
+                                        value={city.NomeMunicipio}
+                                        onChange={({ target }) => setCity(_ => ({ ..._, NomeMunicipio: target.value }))}
                                     />
                                 </div>
                                 <div className="col">
-                                    <label className="form-label required" htmlFor="emailInput">Sigla:</label>
-                                    <input
-                                        type="email"
+                                    <label className="form-label required" htmlFor="federativeUnitSelect">Unidade Federativa:</label>
+                                    <select
                                         className="form-control"
-                                        id="emailInput"
-                                        placeholder="Digite a sigla da unidade federativa..."
+                                        id="federativeUnitSelect"
                                         required
                                         disabled={processing || importing}
-                                        value={federativeUnit.SiglaUnidadeFederativa}
-                                        onChange={({ target }) => setFederativeUnit(_ => ({ ..._, SiglaUnidadeFederativa: target.value }))}
-                                    />
+                                        value={city.idUnidadeFederativa}
+                                        onChange={({ target }) => setCity(_ => ({ ..._, idUnidadeFederativa: target.value }))}
+                                    >
+                                        {
+                                            federativeUnits.map(federativeUnit =>
+                                                <option key={federativeUnit.idUnidadeFederativa} federative-unit-id={federativeUnit.idUnidadeFederativa} value={federativeUnit.idUnidadeFederativa}>{federativeUnit.NomeUnidadeFederativa}</option>
+                                            )
+                                        }
+                                    </select>
                                 </div>
                             </div>
 
@@ -107,11 +118,11 @@ export default function FederativeUnits_FormPage() {
                                             id="ativoSwitch"
                                             required
                                             disabled={processing || importing}
-                                            value={federativeUnit.ativo}
-                                            onChange={({ target }) => setFederativeUnit(_ => ({ ..._, ativo: target.checked }))}
+                                            value={city.ativo}
+                                            onChange={({ target }) => setCity(_ => ({ ..._, ativo: target.checked }))}
                                         />
                                         <label className="form-check-label" htmlFor="ativoSwitch">
-                                            {federativeUnit.ativo ? "Ativo" : "Inativo"}
+                                            {city.ativo ? "Ativo" : "Inativo"}
                                         </label>
                                     </div>
                                 </div>
@@ -124,6 +135,7 @@ export default function FederativeUnits_FormPage() {
                     </div>
                 </div>
             </div>
+
         </>
-    )
+    );
 }

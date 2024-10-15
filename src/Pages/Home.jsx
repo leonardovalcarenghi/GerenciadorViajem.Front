@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { GetCities } from "../Services/Cities";
 import { GetJobs } from "../Services/Jobs";
 import { GetUsers } from "../Services/Users";
-import PageHeader from "./Components/Header";
+import PageHeader from "../Components/Header";
 
 export default function HomePage() {
 

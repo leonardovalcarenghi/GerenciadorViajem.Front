@@ -6,7 +6,7 @@ import TravelsPage from "../Pages/Travels";
 import JobsPage from "../Pages/Jobs";
 
 import ReportPage from "../Pages/Reports";
-import CitiesPage from "../Pages/Cities";
+
 
 // Usuários
 import Users_Index from "../Pages/Users/Index";
@@ -15,6 +15,10 @@ import Users_Form from "../Pages/Users/Form";
 // Unidades Federativas
 import FederativeUnits_Index from "../Pages/FederativeUnits/Index";
 import FederativeUnits_Form from "../Pages/FederativeUnits/Form";
+
+// Cidades
+import Cities_IndexPage from "../Pages/Cities/Index";
+import Cities_FormPage from "../Pages/Cities/Form";
 
 
 export const PrivateRoutes = createBrowserRouter([
@@ -55,6 +59,20 @@ export const PrivateRoutes = createBrowserRouter([
                 element: <FederativeUnits_Form />
             },
 
+            // Cidades ---------------------------------------------------------
+            {
+                path: "/cidades",
+                element: <Cities_IndexPage />
+            },
+            {
+                path: "/cidades/novo",
+                element: <Cities_FormPage />
+            },
+            {
+                path: "/cidades/editar/:identifier",
+                element: <Cities_FormPage />
+            },
+
 
             {
                 path: "/viagens",
@@ -64,11 +82,8 @@ export const PrivateRoutes = createBrowserRouter([
                 path: "/cargos",
                 element: <JobsPage />
             },
-            
-            {
-                path: "/cidades",
-                element: <CitiesPage />
-            },
+
+
             {
                 path: "/relatorios",
                 element: <ReportPage />
