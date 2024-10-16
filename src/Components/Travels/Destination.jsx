@@ -1,9 +1,9 @@
-import { IconPlaneArrival, IconTrash } from "@tabler/icons-react";
+import { IconBed, IconCar, IconPizza, IconPlaneArrival, IconTicket, IconTrash } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { GetFederativeUnits } from "../../Services/FederativeUnits";
 import { GetCities } from "../../Services/Cities";
 
-export default function TravelDestination({ index, idMunicipioDestino, DataDestinoViagem, custo, updateDestination, updateCost, removeDestination }) {
+export default function TravelDestination({ index, idMunicipioDestino, DataDestinoViagem, custos, updateDestination, updateCost, removeDestination }) {
 
     const [federativeUnits, setFederativeUnits] = useState([]);
     const [cities, setCities] = useState([]);
@@ -87,7 +87,7 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                         </select>
                     </div>
 
-                    <div className="col-12 col-lg">
+                    <div className="col-12 col-lg mb-3 mb-lg-0">
                         <label className="form-label required" htmlFor={`cidade_${index}`}>Cidade:</label>
                         <select
                             id={`cidade_${index}`}
@@ -107,10 +107,8 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                             )}
                         </select>
                     </div>
-                </div>
 
-                <div className="row mb-3">
-                    <div className="col">
+                    <div className="col-12 col-lg-3">
                         <label className="form-label required" htmlFor={`data_${index}`}>Data:</label>
                         <input
                             type="date"
@@ -122,26 +120,79 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                     </div>
                 </div>
 
+                <div className="row mb-3">
+
+                </div>
+
                 <div className="row">
                     <div className="col-12 mb-2">
                         <h6 className="text-uppercase">Custos</h6>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered">
+                        <table className="table table-bordered">                
                             <tbody>
                                 <tr>
-                                    <td>Passagem</td>
+                                    <td>
+                                        <IconTicket className="me-1" stroke={1} size={24} style={{ marginTop: "-2px" }} />
+                                        Passagem
+                                    </td>
+                                    <td style={{ width: "12rem" }}>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="R$ 0,00"
+                                            value={custos?.find(_ => _.idTipoCusto == 1)?.ValorCustoDestino || ''}
+                                            onChange={(e) => updateCost(index, 1, e.target.value)}
+                                        />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <IconPizza className="me-1" stroke={1} size={24} style={{ marginTop: "-2px" }} />
+                                        Alimentação
+                                    </td>
                                     <td>
                                         <input
                                             type="text"
                                             className="form-control"
                                             placeholder="R$ 0,00"
-                                            value={custo?.ValorCustoDestino || ''}
-                                            onChange={(e) => updateCost(index, e.target.value)}
+                                            value={custos?.find(_ => _.idTipoCusto == 2)?.ValorCustoDestino || ''}
+                                            onChange={(e) => updateCost(index, 2, e.target.value)}
                                         />
                                     </td>
                                 </tr>
-                                {/* Outros campos de custos */}
+                                <tr>
+                                    <td>
+                                        <IconBed className="me-1" stroke={1} size={24} style={{ marginTop: "-2px" }} />
+                                        Hospedagem
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="R$ 0,00"
+                                            value={custos?.find(_ => _.idTipoCusto == 3)?.ValorCustoDestino || ''}
+                                            onChange={(e) => updateCost(index, 3, e.target.value)}
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <IconCar className="me-1" stroke={1} size={24} style={{ marginTop: "-2px" }} />
+                                        Locomoção
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="R$ 0,00"
+                                            value={custos?.find(_ => _.idTipoCusto == 4)?.ValorCustoDestino || ''}
+                                            onChange={(e) => updateCost(index, 4, e.target.value)}
+                                        />
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </div>

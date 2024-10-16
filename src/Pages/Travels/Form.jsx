@@ -79,10 +79,24 @@ export default function Travels_FormPage() {
         const destination = {
             "idMunicipioDestino": 101,
             "DataDestinoViagem": "2024-01-05",
-            "custo": {
-                "idTipoCusto": 1,
-                "ValorCustoDestino": 150.5
-            }
+            "custos": [
+                {
+                    "idTipoCusto": 1,
+                    "ValorCustoDestino": 0
+                },
+                {
+                    "idTipoCusto": 2,
+                    "ValorCustoDestino": 0
+                },
+                {
+                    "idTipoCusto": 3,
+                    "ValorCustoDestino": 0
+                },
+                {
+                    "idTipoCusto": 4,
+                    "ValorCustoDestino": 0
+                },
+            ]
         };
         setTravel(_ => ({ ..._, destinos: [..._.destinos, destination] }));
 
@@ -112,14 +126,18 @@ export default function Travels_FormPage() {
         }));
     }
 
-    function updateCost(index, newValue) {
+    function updateCost(destinationIndex, idTipoCusto, newValue) {
         setTravel(prevTravel => ({
             ...prevTravel,
             destinos: prevTravel.destinos.map((destination, i) =>
-                i === index
+                i === destinationIndex
                     ? {
                         ...destination,
-                        custo: { ...destination.custo, ValorCustoDestino: newValue }
+                        custos: destination.custos.map(custo =>
+                            custo.idTipoCusto === idTipoCusto
+                                ? { ...custo, ValorCustoDestino: newValue }
+                                : custo
+                        )
                     }
                     : destination
             )

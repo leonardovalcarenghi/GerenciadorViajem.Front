@@ -7,6 +7,17 @@ export const TRAVEL = Object.freeze({
     idMunicipioSaida: PropTypes.number,
     DataInicioViagem: PropTypes.instanceOf(Date),
     DataInicioViagem: PropTypes.instanceOf(Date),
-    destinos: []
+    destinos: [
+        // {
+        //     idMunicipioDestino: PropTypes.number,
+        //     DataDestinoViagem: PropTypes.instanceOf(Date),
+        //     custos: [
+        //         {
+        //             idTipoCusto: PropTypes.number,
+        //             ValorCustoDestino: PropTypes.number
+        //         }
+        //     ]
+        // }
+    ]
 
 });
