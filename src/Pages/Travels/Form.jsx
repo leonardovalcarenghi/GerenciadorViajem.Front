@@ -6,6 +6,7 @@ import PageHeader from "../../Components/Header";
 import { IconBuildingAirport, IconCheck, IconPlaneArrival, IconPlus, IconTrash } from "@tabler/icons-react";
 import { GetFederativeUnits } from "../../Services/FederativeUnits";
 import TravelDestination from "../../Components/Travels/Destination";
+import { GetCities } from "../../Services/Cities";
 
 export default function Travels_FormPage() {
 
@@ -14,20 +15,29 @@ export default function Travels_FormPage() {
     const lastDestinationRef = useRef(null); // Referência para o último destino
 
     const [travel, setTravel] = useState(TRAVEL);
+    const [federativeUnitID, setFederativeUnitID] = useState(null);
 
     const [federativeUnits, setFederativeUnits] = useState([]);
     const [cities, setCities] = useState([]);
 
     const [importing, setImporting] = useState(false);
+    const [importingFederativeUnits, setImportingFederativeUnits] = useState(false);
+    const [importingCities, setImportingCities] = useState(false);
+
+
     const [processing, setProcessing] = useState(false);
 
     const [errorOnImport, setErrorOnImport] = useState(false);
     const [errorOnProcess, setErrorOnProcess] = useState(false);
 
-    useEffect(() => { getFederativeUnits(); }, []);
+
     useEffect(() => { getTravel(); }, [identifier]);
 
+    useEffect(() => { getFederativeUnits(); }, []);
+    useEffect(() => { if (federativeUnitID) { getCities() } }, [federativeUnitID]);
+
     async function getFederativeUnits() {
+        setImportingFederativeUnits(true);
         try {
             const result = await GetFederativeUnits();
             setFederativeUnits(result);
@@ -35,7 +45,19 @@ export default function Travels_FormPage() {
         catch (error) {
 
         }
+        setImportingFederativeUnits(false);
+    }
 
+    async function getCities() {
+        setImportingCities(true);
+        try {
+            const result = await GetCities(federativeUnitID);
+            setCities(result);
+        }
+        catch (error) {
+
+        }
+        setImportingCities(false);
     }
 
     async function getTravel() {
@@ -134,13 +156,54 @@ export default function Travels_FormPage() {
                         </div>
                         <div className="card-body">
                             <div className="row mb-3">
-                                <div className="col">
+
+                                <div className="col-12 col-lg mb-3 mb-lg-0">
                                     <label className="form-label required" htmlFor="nameInput">Unidade Federativa:</label>
-                                    <select className="form-select"></select>
+                                    <select
+                                        className="form-select"
+                                        disabled={importingFederativeUnits}
+                                        value={federativeUnitID}
+                                        onChange={(e) => {
+
+                                            setFederativeUnitID(e.target.value);
+                                            setTravel(_ => ({ ..._, idMunicipioSaida: null }))
+
+                                        }}
+                                    >
+                                        {importingFederativeUnits == false && federativeUnitID == null && <option selected disabled label="Selecionar Unidade Federativa..." />}
+                                        {importingFederativeUnits && <option selected disabled label="Carregando..." />}
+                                        {federativeUnits.map(federativeUnit =>
+                                            <option
+                                                key={federativeUnit.idUnidadeFederativa}
+                                                value={federativeUnit.idUnidadeFederativa}
+                                                label={federativeUnit.NomeUnidadeFederativa}
+                                            />
+                                        )}
+                                    </select>
                                 </div>
-                                <div className="col">
+
+                                <div className="col-12 col-lg">
                                     <label className="form-label required" htmlFor="nameInput">Cidade:</label>
-                                    <select className="form-select"></select>
+                                    <select
+                                        className="form-select"
+                                        disabled={federativeUnitID == null || importingCities}
+                                        value={travel.idMunicipioSaida}
+                                        onChange={(e) => {
+
+                                            setTravel(_ => ({ ..._, idMunicipioSaida: e.target.value }))
+
+                                        }}
+                                    >
+                                        {importingCities == false && travel.idMunicipioSaida == null && <option selected disabled label="Selecionar Cidade..." />}
+                                        {importingCities && <option selected disabled label="Carregando..." />}
+                                        {cities.map(city =>
+                                            <option
+                                                key={city.idMunicipio}
+                                                value={city.idMunicipio}
+                                                label={city.NomeMunicipio}
+                                            />
+                                        )}
+                                    </select>
                                 </div>
                             </div>
 
@@ -173,14 +236,16 @@ export default function Travels_FormPage() {
                 </div>
             ))}
 
+
             <div className="row justify-content-center">
                 <div className="col-auto">
-                    <button type="button" className="btn btn-sm btn-outline-secondary" onClick={addDestination}>
+                    <button type="button" className="btn btn-sm btn-outline-secondary" onClick={addDestination} disabled={travel.destinos.length >= 5}>
                         <IconPlus className="icon" stroke={1} />
-                        Adicionar Destino
+                        Adicionar Destino {travel.destinos.length >= 5 && <small>( Limite Atingido )</small>}
                     </button>
                 </div>
             </div>
+
         </>
     );
 }
