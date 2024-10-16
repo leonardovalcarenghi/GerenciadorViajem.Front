@@ -47,7 +47,7 @@ export default function Cities_IndexPage() {
 
     return (
         <>
-            <PageHeader title="Cidades">
+            <PageHeader title="Cidades" titleRow>
                 <div className="row justify-content-end">
 
                     <div className="col col-lg-5">
