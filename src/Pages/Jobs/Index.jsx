@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { IconBriefcase2, IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
-import { GetJobs } from "../../Services/Jobs";
+import { DeleteJob, GetJobs } from "../../Services/Jobs";
 import Spinner from "../../Components/Spinner";
 import PageHeader from "../../Components/Header";
 import { Link } from "react-router-dom";
-
+import Sweetalert2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const Swal = withReactContent(Sweetalert2);
 
 export default function Jobs_IndexPage() {
 
@@ -29,6 +31,42 @@ export default function Jobs_IndexPage() {
         }
 
         setImportingJobs(false);
+    }
+
+
+    async function deleteJob(id) {
+
+        Swal.fire({
+            title: 'Excluir Cargo',
+            text: `Tem certeza que deseja excluir esse cargo?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                try {
+
+                    await DeleteJob(id);
+                    Swal.fire('Cargo Excluído', 'O cargo foi excluído com êxito.', 'success');
+                    getJobs();
+                }
+                catch (error) {
+                    const message = error?.response?.data?.message || error.message;
+                    Swal.fire({
+                        title: 'Ocorreu um Erro',
+                        text: message,
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: 'Fechar',
+                    });
+                }
+
+
+            }
+        });
+
     }
 
     return (
@@ -98,7 +136,7 @@ export default function Jobs_IndexPage() {
                                                                                 </Link>
                                                                             </li>
                                                                             <li>
-                                                                                <a className="dropdown-item">
+                                                                                <a className="dropdown-item" onClick={() => deleteJob(job.idCargo)}>
                                                                                     <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                     Excluir
                                                                                 </a>

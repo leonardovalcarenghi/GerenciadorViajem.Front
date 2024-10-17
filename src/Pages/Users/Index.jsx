@@ -1,9 +1,12 @@
 import { IconPencil, IconPlus, IconTrash, IconUser } from "@tabler/icons-react";
 import { useEffect, useState } from "react"
 import PageHeader from "../../Components/Header";
-import { GetUsers } from "../../Services/Users";
+import { DeleteUser, GetUsers } from "../../Services/Users";
 import Spinner from "../../Components/Spinner";
 import { Link } from "react-router-dom";
+import Sweetalert2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const Swal = withReactContent(Sweetalert2);
 
 export default function Users_IndexPage() {
 
@@ -30,9 +33,42 @@ export default function Users_IndexPage() {
         setImportingUsers(false);
     }
 
-    const openModal = () => setShowModal(true);
-    const closeModal = () => setShowModal(false);
+    async function deleteUser(id) {
 
+        Swal.fire({
+            title: 'Excluir Usuário',
+            text: `Tem certeza que deseja excluir esse usuário?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                try {
+
+                    await DeleteUser(id);
+                    Swal.fire('Usuário Excluído', 'O usuário foi excluído com êxito.', 'success');
+                    getUsers();
+                }
+                catch (error) {
+                    const message = error?.response?.data?.message || error.message;
+                    Swal.fire({
+                        title: 'Ocorreu um Erro',
+                        text: message,
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: 'Fechar',
+                    });
+                }
+
+
+            }
+        });
+
+    }
+
+    
     return (
         <>
             <PageHeader title="Usuários">
@@ -107,7 +143,7 @@ export default function Users_IndexPage() {
                                                                                 </Link>
                                                                             </li>
                                                                             <li>
-                                                                                <a className="dropdown-item">
+                                                                                <a className="dropdown-item" onClick={() => deleteUser(user.idEmpregado)}>
                                                                                     <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                     Excluir
                                                                                 </a>
