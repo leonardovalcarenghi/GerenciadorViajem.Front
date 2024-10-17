@@ -10,6 +10,7 @@ import { GetCities } from "../../Services/Cities";
 import { GetUsers } from "../../Services/Users";
 import Sweetalert2 from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { DateInput } from "../../Components/Forms/DateInput";
 const Swal = withReactContent(Sweetalert2);
 
 export default function Travels_FormPage() {
@@ -100,17 +101,34 @@ export default function Travels_FormPage() {
         setErrorOnProcess(null);
 
         try {
-
             identifier ? await EditTravel(identifier, { ...travel }) : await NewTravel({ ...travel });
-            navigate("/viagens");
 
+
+            Swal.fire({
+                title: 'Tudo Certo!',
+                text: identifier ? "A viagem foi atualizada com êxito." : "A viagem foi criada com êxito.",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonText: 'OK',
+            });
+
+            navigate("/viagens");
         }
         catch (error) {
-            setErrorOnProcess(true);
+            const message = error?.response?.data?.message || error.message
+            setErrorOnProcess(message);
+
+            Swal.fire({
+                title: 'Ocorreu um Erro',
+                text: message,
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonText: 'Fechar',
+            });
+
         }
 
-        // setProcessing(false);
-        // Lógica para salvar a viagem
+        setProcessing(false);
     }
 
     function addDestination() {
@@ -296,13 +314,13 @@ export default function Travels_FormPage() {
                                 {/* Data Inicial */}
                                 <div className="col">
                                     <label className="form-label required" htmlFor="nameInput">Data Inicio:</label>
-                                    <input type="date" className="form-control" value={travel.DataInicioViagem} />
+                                    <DateInput value={travel.DataInicioViagem} onChange={(DataInicioViagem) => setTravel(_ => ({ ..._, DataInicioViagem }))} />
                                 </div>
 
                                 {/* Data Final */}
                                 <div className="col">
                                     <label className="form-label required" htmlFor="nameInput">Data Final:</label>
-                                    <input type="date" className="form-control" value={travel.DataTerminoViagem} />
+                                    <DateInput value={travel.DataTerminoViagem} onChange={(DataTerminoViagem) => setTravel(_ => ({ ..._, DataTerminoViagem }))} />
                                 </div>
 
                             </div>

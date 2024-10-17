@@ -3,10 +3,13 @@ import PageHeader from "../../Components/Header";
 import { IconChartPie, IconCheck, IconClipboardCheck, IconClock, IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash, IconUser, IconX } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
-import { GetTravels } from "../../Services/Travels";
+import { DeleteTravel, GetTravels } from "../../Services/Travels";
 import { GetUsers } from "../../Services/Users";
 import Spinner from "../../Components/Spinner";
 import { ToDateWord } from "../../Utils/GenericFunctions";
+import Sweetalert2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const Swal = withReactContent(Sweetalert2);
 
 export default function Travels_IndexPage() {
 
@@ -66,6 +69,42 @@ export default function Travels_IndexPage() {
 
         setImportingUsers(false);
     }
+
+    async function deleteTravel(id) {
+
+        Swal.fire({
+            title: 'Excluir Viagem',
+            text: `Tem certeza que deseja excluir essa viagem?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                try {
+
+                    await DeleteTravel(id);
+                    Swal.fire('Viagem Excluída', 'A viagem foi excluída com êxito.', 'success');
+                    getTravels();
+                }
+                catch (error) {
+                    const message = error?.response?.data?.message || error.message;
+                    Swal.fire({
+                        title: 'Ocorreu um Erro',
+                        text: message,
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: 'Fechar',
+                    });
+                }
+
+
+            }
+        });
+
+    }
+
 
     return (
         <>
@@ -243,7 +282,7 @@ export default function Travels_IndexPage() {
                                                                                     <IconPencil className="px-0 mx-0" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                 </Link>
 
-                                                                                <button class="btn btn-outline-secondary px-2 rounded-5" >
+                                                                                <button class="btn btn-outline-secondary px-2 rounded-5" onClick={() => deleteTravel(travel.idViagem)}>
                                                                                     <IconTrash className="px-0 mx-0" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                 </button>
                                                                             </div>
@@ -261,7 +300,7 @@ export default function Travels_IndexPage() {
                                                                                         </Link>
                                                                                     </li>
                                                                                     <li>
-                                                                                        <a class="dropdown-item" href="#">
+                                                                                        <a class="dropdown-item" onClick={() => deleteTravel(travel.idViagem)}>
                                                                                             <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                             Excluir
                                                                                         </a>

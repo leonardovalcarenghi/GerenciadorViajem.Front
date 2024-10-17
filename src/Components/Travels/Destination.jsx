@@ -2,6 +2,7 @@ import { IconBed, IconCar, IconPizza, IconPlaneArrival, IconTicket, IconTrash } 
 import { useEffect, useState } from "react";
 import { GetFederativeUnits } from "../../Services/FederativeUnits";
 import { GetCities } from "../../Services/Cities";
+import { DateInput } from "../Forms/DateInput";
 
 export default function TravelDestination({ index, setTravel, updateDestination, updateCost, removeDestination, ...destino }) {
 
@@ -105,14 +106,8 @@ export default function TravelDestination({ index, setTravel, updateDestination,
                     </div>
 
                     <div className="col-12 col-lg-3">
-                        <label className="form-label required" htmlFor={`data_${index}`}>Data:</label>
-                        <input
-                            type="date"
-                            id={`data_${index}`}
-                            className="form-control"
-                            value={destino.DataDestinoViagem}
-                            onChange={(e) => updateDestination(index, 'DataDestinoViagem', e.target.value)}
-                        />
+                        <label className="form-label required">Data:</label>
+                        <DateInput value={destino.DataDestinoViagem} onChange={(DataDestinoViagem) => updateDestination(index, 'DataDestinoViagem', DataDestinoViagem)} />
                     </div>
                 </div>
 

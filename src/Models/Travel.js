@@ -8,13 +8,12 @@ export const TRAVEL = Object.freeze({
     idMunicipioSaida: PropTypes.number,
     idStatusViagem: PropTypes.number,
 
-    DataInicioViagem: PropTypes.instanceOf(Date),
-    DataTerminoViagem: PropTypes.instanceOf(Date),
+    DataInicioViagem: new Date(),
+    DataTerminoViagem: new Date(),
 
     NomeStatusViagem: PropTypes.string,
     NomeMunicipioSaida: PropTypes.string,
     NomeUnidadeFederativaSaida: PropTypes.string,
-
 
     usuario: {
         idEmpregado: PropTypes.number,
@@ -26,7 +25,7 @@ export const TRAVEL = Object.freeze({
             idViagem: PropTypes.number,
             idUnidadeFederativa: PropTypes.number,
             idMunicipioDestino: PropTypes.number,
-            DataDestinoViagem: PropTypes.instanceOf(Date),
+            DataDestinoViagem: new Date(),
 
             municipio: {
                 idMunicipio: PropTypes.number,

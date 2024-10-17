@@ -42,7 +42,7 @@ export default function Header() {
                         </li>
 
                         {
-                            (user?.cargo?.idCargo == 1 || user?.cargo?.idCargo == 3) &&
+                            (user?.cargo?.idCargo == 1) &&
                             <>
 
                                 <li className="nav-item">
