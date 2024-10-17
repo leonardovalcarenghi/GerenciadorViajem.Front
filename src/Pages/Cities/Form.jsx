@@ -91,7 +91,7 @@ export default function Cities_FormPage() {
                                         id="nameInput"
                                         placeholder="Digite o nome da cidade..."
                                         required
-                                        disabled={processing || importing}
+                                        disabled
                                         value={city.NomeMunicipio}
                                         onChange={({ target }) => setCity(_ => ({ ..._, NomeMunicipio: target.value }))}
                                     />
@@ -102,7 +102,7 @@ export default function Cities_FormPage() {
                                         className="form-select"
                                         id="federativeUnitSelect"
                                         required
-                                        disabled={processing || importing}
+                                        disabled
                                         value={city.idUnidadeFederativa}
                                         onChange={({ target }) => setCity(_ => ({ ..._, idUnidadeFederativa: target.value }))}
                                     >
@@ -114,6 +114,28 @@ export default function Cities_FormPage() {
                                     </select>
                                 </div>
                             </div>
+
+
+                            <div className="row">
+                                <div className="col">
+                                    <div className="form-check form-switch">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            role="switch"
+                                            id="ativoSwitch"
+                                            required
+                                            disabled={processing || importing}
+                                            checked={city.ativo}
+                                            onChange={({ target }) => setCity(_ => ({ ..._, ativo: target.checked }))}
+                                        />
+                                        <label className="form-check-label" htmlFor="ativoSwitch">
+                                            {city.ativo ? "Ativo" : "Inativo"}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
 
                         </div>
                     </div>
