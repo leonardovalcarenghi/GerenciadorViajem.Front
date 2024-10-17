@@ -58,7 +58,7 @@ export default function FederativeUnits_IndexPage() {
                                             <p className="mb-0">{errorOnImport}</p>
                                         </>
                                         :
-                                        <div className="table-responsive">
+                                        <div className="table-responsive-lg">
                                             <table className="table table-hover">
                                                 <thead>
                                                     <tr>

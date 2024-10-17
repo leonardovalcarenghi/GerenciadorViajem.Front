@@ -3,19 +3,17 @@ import { useEffect, useState } from "react";
 import { GetFederativeUnits } from "../../Services/FederativeUnits";
 import { GetCities } from "../../Services/Cities";
 
-export default function TravelDestination({ index, idMunicipioDestino, DataDestinoViagem, custos, updateDestination, updateCost, removeDestination }) {
+export default function TravelDestination({ index, setTravel, updateDestination, updateCost, removeDestination, ...destino }) {
 
     const [federativeUnits, setFederativeUnits] = useState([]);
     const [cities, setCities] = useState([]);
-
-    const [federativeUnitID, setFederativeUnitID] = useState(null);
 
     const [importingFederativeUnits, setImportingFederativeUnits] = useState(false);
     const [importingCities, setImportingCities] = useState(false);
 
     useEffect(() => { getFederativeUnits() }, []);
 
-    useEffect(() => { if (federativeUnitID) { getCities() } }, [federativeUnitID]);
+    useEffect(() => { if (destino.idUnidadeFederativa) { getCities() } }, [destino.idUnidadeFederativa]);
 
     async function getFederativeUnits() {
         setImportingFederativeUnits(true);
@@ -32,7 +30,7 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
     async function getCities() {
         setImportingCities(true);
         try {
-            const result = await GetCities(federativeUnitID);
+            const result = await GetCities(destino.idUnidadeFederativa);
             setCities(result);
         }
         catch (error) {
@@ -67,15 +65,13 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                         <select
                             className="form-select"
                             disabled={importingFederativeUnits}
-                            value={federativeUnitID}
+                            value={destino.idUnidadeFederativa}
                             onChange={(e) => {
-
-                                setFederativeUnitID(e.target.value)
-                                updateDestination(index, 'idMunicipioDestino', null)
-
+                                updateDestination(index, 'idUnidadeFederativa', e.target.value);
+                                updateDestination(index, 'idMunicipioDestino', null);
                             }}
                         >
-                            {importingFederativeUnits == false && federativeUnitID == null && <option selected disabled label="Selecionar Unidade Federativa..." />}
+                            {importingFederativeUnits == false && destino.idUnidadeFederativa == null && <option selected disabled label="Selecionar Unidade Federativa..." />}
                             {importingFederativeUnits && <option selected disabled label="Carregando..." />}
                             {federativeUnits.map(federativeUnit =>
                                 <option
@@ -92,11 +88,11 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                         <select
                             id={`cidade_${index}`}
                             className="form-select"
-                            disabled={federativeUnitID == null || importingCities}
-                            value={idMunicipioDestino}
+                            disabled={destino.idUnidadeFederativa == null || importingCities}
+                            value={destino.idMunicipioDestino}
                             onChange={(e) => updateDestination(index, 'idMunicipioDestino', e.target.value)}
                         >
-                            {importingCities == false && idMunicipioDestino == null && <option selected disabled label="Selecionar Cidade..." />}
+                            {importingCities == false && destino.idMunicipioDestino == null && <option selected disabled label="Selecionar Cidade..." />}
                             {importingCities && <option selected disabled label="Carregando..." />}
                             {cities.map(city =>
                                 <option
@@ -114,7 +110,7 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                             type="date"
                             id={`data_${index}`}
                             className="form-control"
-                            value={DataDestinoViagem}
+                            value={destino.DataDestinoViagem}
                             onChange={(e) => updateDestination(index, 'DataDestinoViagem', e.target.value)}
                         />
                     </div>
@@ -129,7 +125,7 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                         <h6 className="text-uppercase">Custos</h6>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered">                
+                        <table className="table table-bordered">
                             <tbody>
                                 <tr>
                                     <td>
@@ -141,8 +137,11 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                                             type="text"
                                             className="form-control"
                                             placeholder="R$ 0,00"
-                                            value={custos?.find(_ => _.idTipoCusto == 1)?.ValorCustoDestino || ''}
-                                            onChange={(e) => updateCost(index, 1, e.target.value)}
+                                            value={destino.custos?.find(_ => _.idTipoCusto == 1)?.ValorCustoDestino || ''}
+                                            onChange={(e) => {
+
+                                                updateCost(index, 1, e.target.value)
+                                            }}
                                         />
                                     </td>
                                 </tr>
@@ -157,7 +156,7 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                                             type="text"
                                             className="form-control"
                                             placeholder="R$ 0,00"
-                                            value={custos?.find(_ => _.idTipoCusto == 2)?.ValorCustoDestino || ''}
+                                            value={destino.custos?.find(_ => _.idTipoCusto == 2)?.ValorCustoDestino || ''}
                                             onChange={(e) => updateCost(index, 2, e.target.value)}
                                         />
                                     </td>
@@ -172,7 +171,7 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                                             type="text"
                                             className="form-control"
                                             placeholder="R$ 0,00"
-                                            value={custos?.find(_ => _.idTipoCusto == 3)?.ValorCustoDestino || ''}
+                                            value={destino.custos?.find(_ => _.idTipoCusto == 3)?.ValorCustoDestino || ''}
                                             onChange={(e) => updateCost(index, 3, e.target.value)}
                                         />
                                     </td>
@@ -187,7 +186,7 @@ export default function TravelDestination({ index, idMunicipioDestino, DataDesti
                                             type="text"
                                             className="form-control"
                                             placeholder="R$ 0,00"
-                                            value={custos?.find(_ => _.idTipoCusto == 4)?.ValorCustoDestino || ''}
+                                            value={destino.custos?.find(_ => _.idTipoCusto == 4)?.ValorCustoDestino || ''}
                                             onChange={(e) => updateCost(index, 4, e.target.value)}
                                         />
                                     </td>

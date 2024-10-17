@@ -62,7 +62,7 @@ export default function Users_IndexPage() {
                                         </>
                                         :
 
-                                        <div className="table-responsive">
+                                        <div className="table-responsive-lg">
                                             <table className="table table-hover">
                                                 <thead>
                                                     <tr>

@@ -1,12 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { TRAVEL } from "../../Models/Travel";
-import { GetTravel } from "../../Services/Travels";
+import { EditTravel, GetTravel, NewTravel } from "../../Services/Travels";
 import { useEffect, useState, useRef } from "react";
 import PageHeader from "../../Components/Header";
-import { IconBuildingAirport, IconCheck, IconPlaneArrival, IconPlus, IconTrash } from "@tabler/icons-react";
+import { IconBuildingAirport, IconCheck, IconPlaneArrival, IconPlus, IconTrash, IconUser } from "@tabler/icons-react";
 import { GetFederativeUnits } from "../../Services/FederativeUnits";
 import TravelDestination from "../../Components/Travels/Destination";
 import { GetCities } from "../../Services/Cities";
+import { GetUsers } from "../../Services/Users";
+import Sweetalert2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const Swal = withReactContent(Sweetalert2);
 
 export default function Travels_FormPage() {
 
@@ -15,26 +19,45 @@ export default function Travels_FormPage() {
     const lastDestinationRef = useRef(null); // Referência para o último destino
 
     const [travel, setTravel] = useState(TRAVEL);
-    const [federativeUnitID, setFederativeUnitID] = useState(null);
+    const [destinos, setDestinos] = useState(travel.destinos);
 
+    const [users, setUsers] = useState([]);
     const [federativeUnits, setFederativeUnits] = useState([]);
     const [cities, setCities] = useState([]);
 
     const [importing, setImporting] = useState(false);
+    const [importingUsers, setImportingUsers] = useState(false);
     const [importingFederativeUnits, setImportingFederativeUnits] = useState(false);
     const [importingCities, setImportingCities] = useState(false);
-
 
     const [processing, setProcessing] = useState(false);
 
     const [errorOnImport, setErrorOnImport] = useState(false);
     const [errorOnProcess, setErrorOnProcess] = useState(false);
+    const [errorOnImportUsers, setErrorOnImportUsers] = useState();
 
+
+    useEffect(() => { getFederativeUnits(); getUsers() }, []);
 
     useEffect(() => { getTravel(); }, [identifier]);
 
-    useEffect(() => { getFederativeUnits(); }, []);
-    useEffect(() => { if (federativeUnitID) { getCities() } }, [federativeUnitID]);
+    useEffect(() => { if (travel.unidadeFederativaId) { getCities() } }, [travel.unidadeFederativaId]);
+
+
+    async function getUsers() {
+        setImportingUsers(true);
+        setErrorOnImportUsers(null);
+
+        try {
+            const result = await GetUsers();
+            setUsers(result);
+        }
+        catch (error) {
+            setErrorOnImportUsers(error?.response?.data?.message || error.message);
+        }
+
+        setImportingUsers(false);
+    }
 
     async function getFederativeUnits() {
         setImportingFederativeUnits(true);
@@ -51,7 +74,7 @@ export default function Travels_FormPage() {
     async function getCities() {
         setImportingCities(true);
         try {
-            const result = await GetCities(federativeUnitID);
+            const result = await GetCities(travel.unidadeFederativaId);
             setCities(result);
         }
         catch (error) {
@@ -72,6 +95,21 @@ export default function Travels_FormPage() {
     }
 
     async function saveTravel() {
+
+        setProcessing(true);
+        setErrorOnProcess(null);
+
+        try {
+
+            identifier ? await EditTravel(identifier, { ...travel }) : await NewTravel({ ...travel });
+            navigate("/viagens");
+
+        }
+        catch (error) {
+            setErrorOnProcess(true);
+        }
+
+        // setProcessing(false);
         // Lógica para salvar a viagem
     }
 
@@ -109,10 +147,27 @@ export default function Travels_FormPage() {
     }
 
     function removeDestination(index) {
-        setTravel(prevTravel => ({
-            ...prevTravel,
-            destinos: prevTravel.destinos.filter((_, i) => i !== index)
-        }));
+
+        Swal.fire({
+            title: 'Remover Destino',
+            text: `Tem certeza que deseja remover o destino nº ${index + 1}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Remover',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                setTravel(prevTravel => ({
+                    ...prevTravel,
+                    destinos: prevTravel.destinos.filter((_, i) => i !== index)
+                }));
+
+            }
+        });
+
+
+
     }
 
     function updateDestination(index, field, value) {
@@ -144,6 +199,8 @@ export default function Travels_FormPage() {
         }));
     }
 
+
+
     return (
         <>
             <PageHeader title={identifier ? "Editar Viagem" : "Nova Viagem"}>
@@ -173,22 +230,30 @@ export default function Travels_FormPage() {
                             </div>
                         </div>
                         <div className="card-body">
+
+                            <div className="row mb-3">
+                                <div className="col-12 col-lg-6 mb-lg-0">
+                                    <label className="form-label required" htmlFor="nameInput">Usuário:</label>
+                                    <select className="form-select" disabled={identifier} value={travel.idEmpregado} onChange={({ target }) => setTravel(_ => ({ ..._, idEmpregado: target.value }))}>
+                                        {importingUsers == false && travel.idEmpregado == null && <option selected disabled label="Selecionar usuário..." />}
+                                        {importingUsers && <option selected disabled label="Carregando..." />}
+                                        {users.map(user => <option key={user.idEmpregado} value={user.idEmpregado} label={user.nomeEmpregado} />)}
+                                    </select>
+                                </div>
+                            </div>
+
                             <div className="row mb-3">
 
+                                {/* Unidade Federativa */}
                                 <div className="col-12 col-lg mb-3 mb-lg-0">
                                     <label className="form-label required" htmlFor="nameInput">Unidade Federativa:</label>
                                     <select
                                         className="form-select"
                                         disabled={importingFederativeUnits}
-                                        value={federativeUnitID}
-                                        onChange={(e) => {
-
-                                            setFederativeUnitID(e.target.value);
-                                            setTravel(_ => ({ ..._, idMunicipioSaida: null }))
-
-                                        }}
+                                        value={travel.unidadeFederativaId}
+                                        onChange={(e) => setTravel(_ => ({ ..._, unidadeFederativaId: e.target.value, idMunicipioSaida: null }))}
                                     >
-                                        {importingFederativeUnits == false && federativeUnitID == null && <option selected disabled label="Selecionar Unidade Federativa..." />}
+                                        {importingFederativeUnits == false && travel.unidadeFederativaId == null && <option selected disabled label="Selecionar Unidade Federativa..." />}
                                         {importingFederativeUnits && <option selected disabled label="Carregando..." />}
                                         {federativeUnits.map(federativeUnit =>
                                             <option
@@ -200,11 +265,12 @@ export default function Travels_FormPage() {
                                     </select>
                                 </div>
 
+                                {/* Cidade */}
                                 <div className="col-12 col-lg">
                                     <label className="form-label required" htmlFor="nameInput">Cidade:</label>
                                     <select
                                         className="form-select"
-                                        disabled={federativeUnitID == null || importingCities}
+                                        disabled={travel.unidadeFederativaId == null || importingCities}
                                         value={travel.idMunicipioSaida}
                                         onChange={(e) => {
 
@@ -226,14 +292,19 @@ export default function Travels_FormPage() {
                             </div>
 
                             <div className="row">
+
+                                {/* Data Inicial */}
                                 <div className="col">
                                     <label className="form-label required" htmlFor="nameInput">Data Inicio:</label>
-                                    <input type="date" className="form-control" />
+                                    <input type="date" className="form-control" value={travel.DataInicioViagem} />
                                 </div>
+
+                                {/* Data Final */}
                                 <div className="col">
                                     <label className="form-label required" htmlFor="nameInput">Data Final:</label>
-                                    <input type="date" className="form-control" />
+                                    <input type="date" className="form-control" value={travel.DataTerminoViagem} />
                                 </div>
+
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import PageHeader from "../../Components/Header";
-import { IconChartPie, IconCheck, IconClipboardCheck, IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash, IconUser, IconX } from "@tabler/icons-react";
+import { IconChartPie, IconCheck, IconClipboardCheck, IconClock, IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash, IconUser, IconX } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
 import { GetTravels } from "../../Services/Travels";
 import { GetUsers } from "../../Services/Users";
 import Spinner from "../../Components/Spinner";
+import { ToDateWord } from "../../Utils/GenericFunctions";
 
 export default function Travels_IndexPage() {
 
@@ -24,6 +25,7 @@ export default function Travels_IndexPage() {
 
     const TRAVEL_STATUS_COLOR = Object.freeze({
         "Pendente": "bg-secondary",
+        "Aprovado": "bg-success",
         "Status da viagem não encontrado": "bg-dark"
     })
 
@@ -100,6 +102,8 @@ export default function Travels_IndexPage() {
             {/* DASHBOARD */}
 
             <div className="row">
+
+                {/* Totais */}
                 <div className="col-lg-3 col-md-6">
                     <div className="card text-white bg-primary mb-3">
                         <div className="card-body">
@@ -107,13 +111,29 @@ export default function Travels_IndexPage() {
                                 <IconChartPie size={56} className="me-3" />
                                 <div>
                                     <h5 className="card-title mb-0">Total</h5>
-                                    <p className="card-text fs-4">{0}</p>
+                                    <p className="card-text fs-4">{travels.length}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                {/* Pendentes */}
+                <div className="col-lg-3 col-md-6">
+                    <div className="card text-white bg-secondary mb-3">
+                        <div className="card-body">
+                            <div className="d-flex align-items-center">
+                                <IconClock size={56} className="me-3" />
+                                <div>
+                                    <h5 className="card-title mb-0">Pendentes</h5>
+                                    <p className="card-text fs-4">{travels.filter(_ => _.NomeStatusViagem == "Pendente").length}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Aprovadas */}
                 <div className="col-lg-3 col-md-6">
                     <div className="card text-white bg-success mb-3">
                         <div className="card-body">
@@ -121,13 +141,14 @@ export default function Travels_IndexPage() {
                                 <IconCheck size={56} className="me-3" />
                                 <div>
                                     <h5 className="card-title mb-0">Aprovadas</h5>
-                                    <p className="card-text fs-4">{0}</p>
+                                    <p className="card-text fs-4">{travels.filter(_ => _.NomeStatusViagem == "Aprovado").length}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                {/* Rejeitadas */}
                 <div className="col-lg-3 col-md-6">
                     <div className="card text-white bg-danger mb-3">
                         <div className="card-body">
@@ -142,19 +163,6 @@ export default function Travels_IndexPage() {
                     </div>
                 </div>
 
-                <div className="col-lg-3 col-md-6">
-                    <div className="card text-white bg-warning mb-3">
-                        <div className="card-body">
-                            <div className="d-flex align-items-center">
-                                <IconClipboardCheck size={56} stroke={1.5} className="me-3" />
-                                <div>
-                                    <h5 className="card-title mb-0">Concluídas</h5>
-                                    <p className="card-text fs-4">{0}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             {/* LISTAGEM */}
@@ -203,8 +211,8 @@ export default function Travels_IndexPage() {
                                                                             <div className="d-flex align-items-center">
                                                                                 <IconPlaneTilt stroke={1} size={38} />
                                                                                 <div className="position-relative d-flex flex-column ms-2">
-                                                                                    <span className="d-inline-block">{travel.municipioSaida.nome}</span>
-                                                                                    <small className="text-muted">{travel.municipioSaida.unidadeFederativa.NomeUnidadeFederativa}</small>
+                                                                                    <span className="d-inline-block">{travel.municipioSaida.NomeMunicipioSaida}</span>
+                                                                                    <small className="text-muted">{travel.municipioSaida.NomeUnidadeFederativaSaida}</small>
                                                                                 </div>
                                                                             </div>
                                                                         </td>
@@ -213,17 +221,17 @@ export default function Travels_IndexPage() {
                                                                         <td className="text-center">{travel.destinos.length}</td>
 
                                                                         {/* Data Início */}
-                                                                        <td className="text-center">{travel.DataInicioViagem}</td>
+                                                                        <td className="text-center">{ToDateWord(travel.DataInicioViagem)}</td>
 
                                                                         {/* Data Final */}
-                                                                        <td className="text-center">{travel.DataTerminoViagem}</td>
+                                                                        <td className="text-center">{ToDateWord(travel.DataTerminoViagem)}</td>
 
                                                                         {/* Custo Total */}
                                                                         <td className="text-center">nao implementado</td>
 
                                                                         {/* Status */}
                                                                         <td className="text-center">
-                                                                            <span className={`badge rounded-pill ${TRAVEL_STATUS_COLOR[travel.statusViagem]}`}>{travel.statusViagem}</span>
+                                                                            <span className={`badge rounded-pill ${TRAVEL_STATUS_COLOR[travel.NomeStatusViagem]}`}>{travel.NomeStatusViagem}</span>
                                                                         </td>
 
                                                                         {/* Opções */}
@@ -274,7 +282,7 @@ export default function Travels_IndexPage() {
                                                                                                 </a>
                                                                                             </li>
                                                                                         </li>
-                                                                                    }                                                                                  
+                                                                                    }
                                                                                 </ul>
                                                                             </div>
                                                                         </td>
