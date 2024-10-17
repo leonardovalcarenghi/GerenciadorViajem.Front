@@ -63,8 +63,8 @@ export default function FederativeUnits_IndexPage() {
                                                 <thead>
                                                     <tr>
                                                         <th scope="col" className="small text-muted text-uppercase">Unidade</th>
-                                                        {/* <th scope="col" className="small text-muted text-uppercase text-center">Status</th> */}
-                                                        {/* <th scope="col" /> */}
+                                                        <th scope="col" className="small text-muted text-uppercase text-center">Status</th>
+                                                        <th scope="col" />
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -81,11 +81,11 @@ export default function FederativeUnits_IndexPage() {
                                                                     </div>
                                                                 </td>
 
-                                                                {/* <td className="text-center">
+                                                                <td className="text-center">
                                                                     {unit.ativo ? "Ativo" : "Inativo"}
-                                                                </td> */}
+                                                                </td>
 
-                                                                {/* <td className="text-end">
+                                                                <td className="text-end">
                                                                     <div className="dropdown">
                                                                         <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
                                                                         <ul className="dropdown-menu dropdown-menu-end">
@@ -95,16 +95,16 @@ export default function FederativeUnits_IndexPage() {
                                                                                     Editar
                                                                                 </Link>
                                                                             </li>
-                                                                            <li>
+                                                                            {/* <li>
                                                                                 <a className="dropdown-item">
                                                                                     <IconTrash className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                     Excluir
                                                                                 </a>
-                                                                            </li>
+                                                                            </li> */}
                                                                         </ul>
                                                                     </div>
-                                                                </td> */}
-                                                                
+                                                                </td>
+
                                                             </tr>
                                                         )
                                                     }

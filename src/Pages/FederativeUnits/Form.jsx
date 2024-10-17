@@ -79,7 +79,7 @@ export default function FederativeUnits_FormPage() {
                                         id="nameInput"
                                         placeholder="Digite o nome da unidade federativa..."
                                         required
-                                        disabled={processing || importing}
+                                        disabled
                                         value={federativeUnit.NomeUnidadeFederativa}
                                         onChange={({ target }) => setFederativeUnit(_ => ({ ..._, NomeUnidadeFederativa: target.value }))}
                                     />
@@ -92,7 +92,7 @@ export default function FederativeUnits_FormPage() {
                                         id="emailInput"
                                         placeholder="Digite a sigla da unidade federativa..."
                                         required
-                                        disabled={processing || importing}
+                                        disabled
                                         value={federativeUnit.SiglaUnidadeFederativa}
                                         onChange={({ target }) => setFederativeUnit(_ => ({ ..._, SiglaUnidadeFederativa: target.value }))}
                                     />
@@ -109,7 +109,7 @@ export default function FederativeUnits_FormPage() {
                                             id="ativoSwitch"
                                             required
                                             disabled={processing || importing}
-                                            value={federativeUnit.ativo}
+                                            checked={federativeUnit.ativo}
                                             onChange={({ target }) => setFederativeUnit(_ => ({ ..._, ativo: target.checked }))}
                                         />
                                         <label className="form-check-label" htmlFor="ativoSwitch">
