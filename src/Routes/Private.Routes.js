@@ -52,28 +52,28 @@ export const PrivateRoutes = createBrowserRouter([
                 path: "/unidades-federativas",
                 element: <FederativeUnits_Index />
             },
-            {
-                path: "/unidades-federativas/novo",
-                element: <FederativeUnits_Form />
-            },
-            {
-                path: "/unidades-federativas/editar/:identifier",
-                element: <FederativeUnits_Form />
-            },
+            // {
+            //     path: "/unidades-federativas/novo",
+            //     element: <FederativeUnits_Form />
+            // },
+            // {
+            //     path: "/unidades-federativas/editar/:identifier",
+            //     element: <FederativeUnits_Form />
+            // },
 
             // Cidades ---------------------------------------------------------
             {
                 path: "/cidades",
                 element: <Cities_IndexPage />
             },
-            {
-                path: "/cidades/novo",
-                element: <Cities_FormPage />
-            },
-            {
-                path: "/cidades/editar/:identifier",
-                element: <Cities_FormPage />
-            },
+            // {
+            //     path: "/cidades/novo",
+            //     element: <Cities_FormPage />
+            // },
+            // {
+            //     path: "/cidades/editar/:identifier",
+            //     element: <Cities_FormPage />
+            // },
 
             // Cargos ---------------------------------------------------------
             {

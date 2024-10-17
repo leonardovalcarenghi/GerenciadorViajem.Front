@@ -67,13 +67,6 @@ export default function Cities_IndexPage() {
                             </select>
                         </div>
                     </div>
-
-                    <div className="col-auto">
-                        <Link className="btn btn-primary" to={"/cidades/novo"}>
-                            <IconPlus stroke={1} />
-                            Nova Cidade
-                        </Link>
-                    </div>
                 </div>
             </PageHeader>
 
@@ -98,7 +91,7 @@ export default function Cities_IndexPage() {
                                                     <thead>
                                                         <tr>
                                                             <th scope="col" className="small text-muted text-uppercase">Cidade</th>
-                                                            <th scope="col" />
+                                                            {/* <th scope="col" /> */}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -109,13 +102,11 @@ export default function Cities_IndexPage() {
                                                                         <div className="d-flex align-items-center">
                                                                             <IconMapPin stroke={1} size={38} />
                                                                             <div className="position-relative d-flex flex-column ms-2">
-                                                                                <Link to={`/cidades/editar/${city.idMunicipio}`}>
-                                                                                    <span className="d-inline-block">{city.NomeMunicipio}</span>
-                                                                                </Link>
+                                                                                <span className="d-inline-block">{city.NomeMunicipio}</span>
                                                                             </div>
                                                                         </div>
                                                                     </td>
-
+{/* 
                                                                     <td className="text-end">
                                                                         <div className="dropdown">
                                                                             <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
@@ -134,7 +125,7 @@ export default function Cities_IndexPage() {
                                                                                 </li>
                                                                             </ul>
                                                                         </div>
-                                                                    </td>
+                                                                    </td> */}
                                                                 </tr>
                                                             )
                                                         }

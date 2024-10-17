@@ -33,14 +33,14 @@ export default function FederativeUnits_IndexPage() {
         <>
             <PageHeader title="Unidades Federativas">
 
-                <div className="row justify-content-end">
+                {/* <div className="row justify-content-end">
                     <div className="col-auto">
                         <Link className="btn btn-primary" to={"/unidades-federativas/novo"}>
                             <IconPlus stroke={1} />
                             Nova Unidade Federativa
                         </Link>
                     </div>
-                </div>
+                </div> */}
 
 
             </PageHeader>
@@ -63,8 +63,8 @@ export default function FederativeUnits_IndexPage() {
                                                 <thead>
                                                     <tr>
                                                         <th scope="col" className="small text-muted text-uppercase">Unidade</th>
-                                                        <th scope="col" className="small text-muted text-uppercase text-center">Status</th>
-                                                        <th scope="col" />
+                                                        {/* <th scope="col" className="small text-muted text-uppercase text-center">Status</th> */}
+                                                        {/* <th scope="col" /> */}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -75,19 +75,17 @@ export default function FederativeUnits_IndexPage() {
                                                                     <div className="d-flex align-items-center">
                                                                         <IconMap stroke={1} size={38} />
                                                                         <div className="position-relative d-flex flex-column ms-2">
-                                                                            <Link to={`/unidades-federativas/editar/${unit.idUnidadeFederativa}`}>
-                                                                                <span className="d-inline-block">{unit.NomeUnidadeFederativa}</span>
-                                                                            </Link>
+                                                                            <span className="d-inline-block">{unit.NomeUnidadeFederativa}</span>
                                                                             <small className="text-muted">{unit.SiglaUnidadeFederativa}</small>
                                                                         </div>
                                                                     </div>
                                                                 </td>
 
-                                                                <td className="text-center">
+                                                                {/* <td className="text-center">
                                                                     {unit.ativo ? "Ativo" : "Inativo"}
-                                                                </td>
+                                                                </td> */}
 
-                                                                <td className="text-end">
+                                                                {/* <td className="text-end">
                                                                     <div className="dropdown">
                                                                         <button className="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
                                                                         <ul className="dropdown-menu dropdown-menu-end">
@@ -105,7 +103,8 @@ export default function FederativeUnits_IndexPage() {
                                                                             </li>
                                                                         </ul>
                                                                     </div>
-                                                                </td>
+                                                                </td> */}
+                                                                
                                                             </tr>
                                                         )
                                                     }
