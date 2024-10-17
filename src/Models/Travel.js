@@ -1,47 +1,45 @@
-import PropTypes from 'prop-types';
-
 export const TRAVEL = Object.freeze({
 
-    idViagem: PropTypes.number,
-    idEmpregado: PropTypes.number,
-    unidadeFederativaId: PropTypes.number,
-    idMunicipioSaida: PropTypes.number,
-    idStatusViagem: PropTypes.number,
+    idViagem: 0,
+    idEmpregado: 0,
+    unidadeFederativaId: 0,
+    idMunicipioSaida: 0,
+    idStatusViagem: 0,
 
     DataInicioViagem: new Date(),
     DataTerminoViagem: new Date(),
 
-    NomeStatusViagem: PropTypes.string,
-    NomeMunicipioSaida: PropTypes.string,
-    NomeUnidadeFederativaSaida: PropTypes.string,
+    NomeStatusViagem: "",
+    NomeMunicipioSaida: "",
+    NomeUnidadeFederativaSaida: "",
 
     usuario: {
-        idEmpregado: PropTypes.number,
-        nomeEmpregado: PropTypes.string,
+        idEmpregado: 0,
+        nomeEmpregado: "",
     },
 
     destinos: [
         {
-            idViagem: PropTypes.number,
-            idUnidadeFederativa: PropTypes.number,
-            idMunicipioDestino: PropTypes.number,
+            idViagem: 0,
+            idUnidadeFederativa: 0,
+            idMunicipioDestino: 0,
             DataDestinoViagem: new Date(),
 
             municipio: {
-                idMunicipio: PropTypes.number,
-                NomeMunicipio: PropTypes.string
+                idMunicipio: 0,
+                NomeMunicipio: ""
             },
 
             unidadeFederativa: {
-                idUnidadeFederativa: PropTypes.number,
-                NomeUnidadeFederativa: PropTypes.string
+                idUnidadeFederativa: 0,
+                NomeUnidadeFederativa: ""
             },
 
             custos: [
                 {
-                    idTipoCusto: PropTypes.number,
-                    NomeTipoCusto: PropTypes.string,
-                    ValorCustoDestino: "R$ 150,50"
+                    idTipoCusto: 0,
+                    NomeTipoCusto: "",
+                    ValorCustoDestino: "0"
                 }
             ]
         }

@@ -38,7 +38,7 @@ export default function Travels_FormPage() {
     const [errorOnImportUsers, setErrorOnImportUsers] = useState();
 
 
-    useEffect(() => { getFederativeUnits(); getUsers() }, []);
+    useEffect(() => { console.log('travel', travel); getFederativeUnits(); getUsers() }, []);
 
     useEffect(() => { getTravel(); }, [identifier]);
 
@@ -311,16 +311,15 @@ export default function Travels_FormPage() {
 
                             <div className="row">
 
-                                {/* Data Inicial */}
                                 <div className="col">
                                     <label className="form-label required" htmlFor="nameInput">Data Inicio:</label>
-                                    <DateInput value={travel.DataInicioViagem} onChange={(DataInicioViagem) => setTravel(_ => ({ ..._, DataInicioViagem }))} />
+                                    <DateInput value={travel?.DataInicioViagem || new Date()} onChange={(DataInicioViagem) => setTravel(_ => ({ ..._, DataInicioViagem }))} />
                                 </div>
 
-                                {/* Data Final */}
+
                                 <div className="col">
                                     <label className="form-label required" htmlFor="nameInput">Data Final:</label>
-                                    <DateInput value={travel.DataTerminoViagem} onChange={(DataTerminoViagem) => setTravel(_ => ({ ..._, DataTerminoViagem }))} />
+                                    <DateInput value={travel?.DataTerminoViagem || new Date()} onChange={(DataTerminoViagem) => setTravel(_ => ({ ..._, DataTerminoViagem }))} />
                                 </div>
 
                             </div>
