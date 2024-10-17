@@ -231,7 +231,7 @@ export default function Travels_IndexPage() {
 
                                                                             <div className="d-flex d-lg-none">
 
-                                                                                <Link class="btn btn-outline-secondary px-2 rounded-5 me-1" to={`/viagens/editar/${"123"}`}>
+                                                                                <Link class="btn btn-outline-secondary px-2 rounded-5 me-1" to={`/viagens/editar/${travel.idViagem}`}>
                                                                                     <IconPencil className="px-0 mx-0" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                 </Link>
 
@@ -247,7 +247,7 @@ export default function Travels_IndexPage() {
                                                                                         <h5 className=" dropdown-header">Viagem</h5>
                                                                                     </li>
                                                                                     <li>
-                                                                                        <Link class="dropdown-item" to={`/viagens/editar/${"123"}`}>
+                                                                                        <Link class="dropdown-item" to={`/viagens/editar/${travel.idViagem}`}>
                                                                                             <IconPencil className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                             Editar
                                                                                         </Link>
