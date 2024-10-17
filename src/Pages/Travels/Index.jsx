@@ -234,8 +234,7 @@ export default function Travels_IndexPage() {
                                                                 <th scope="col" className="small text-muted text-uppercase">Origem</th>
                                                                 <th scope="col" className="small text-muted text-uppercase text-center">Nº Destinos</th>
                                                                 <th scope="col" className="small text-muted text-uppercase text-center">Data Inicio</th>
-                                                                <th scope="col" className="small text-muted text-uppercase text-center">Data Final</th>
-                                                                <th scope="col" className="small text-muted text-uppercase text-center">Custo Total</th>
+                                                                <th scope="col" className="small text-muted text-uppercase text-center">Data Final</th>                                     
                                                                 <th scope="col" className="small text-muted text-uppercase text-center">Status</th>
                                                                 <th scope="col" />
                                                             </tr>
@@ -264,9 +263,6 @@ export default function Travels_IndexPage() {
 
                                                                         {/* Data Final */}
                                                                         <td className="text-center">{ToDateWord(travel.DataTerminoViagem)}</td>
-
-                                                                        {/* Custo Total */}
-                                                                        <td className="text-center">nao implementado</td>
 
                                                                         {/* Status */}
                                                                         <td className="text-center">
