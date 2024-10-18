@@ -3,7 +3,7 @@ import PageHeader from "../../Components/Header";
 import { IconChartPie, IconCheck, IconClipboardCheck, IconClock, IconPencil, IconPlaneTilt, IconPlus, IconTrack, IconTrash, IconUser, IconX } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
-import { DeleteTravel, GetTravels } from "../../Services/Travels";
+import { ApproveTravel, DeleteTravel, GetTravels, RejectTravel } from "../../Services/Travels";
 import { GetUsers } from "../../Services/Users";
 import Spinner from "../../Components/Spinner";
 import { ToDateWord } from "../../Utils/GenericFunctions";
@@ -86,6 +86,76 @@ export default function Travels_IndexPage() {
 
                     await DeleteTravel(id);
                     Swal.fire('Viagem Excluída', 'A viagem foi excluída com êxito.', 'success');
+                    getTravels();
+                }
+                catch (error) {
+                    const message = error?.response?.data?.message || error.message;
+                    Swal.fire({
+                        title: 'Ocorreu um Erro',
+                        text: message,
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: 'Fechar',
+                    });
+                }
+
+
+            }
+        });
+
+    }
+
+
+    async function approveTravel(id) {
+
+        Swal.fire({
+            title: 'Aprovar Viagem',
+            text: `Tem certeza que deseja aprovar essa viagem?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                try {
+
+                    await ApproveTravel(id);
+                    Swal.fire('Viagem Aprovada', 'A viagem foi aprovada com êxito.', 'success');
+                    getTravels();
+                }
+                catch (error) {
+                    const message = error?.response?.data?.message || error.message;
+                    Swal.fire({
+                        title: 'Ocorreu um Erro',
+                        text: message,
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: 'Fechar',
+                    });
+                }
+
+
+            }
+        });
+
+    }
+    async function rejectTravel(id) {
+
+        Swal.fire({
+            title: 'Rejeitar Viagem',
+            text: `Tem certeza que deseja rejeitar essa viagem?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                try {
+
+                    await RejectTravel(id);
+                    Swal.fire('Viagem Aprovada', 'A viagem foi rejeitada com êxito.', 'success');
                     getTravels();
                 }
                 catch (error) {
@@ -234,7 +304,7 @@ export default function Travels_IndexPage() {
                                                                 <th scope="col" className="small text-muted text-uppercase">Origem</th>
                                                                 <th scope="col" className="small text-muted text-uppercase text-center">Nº Destinos</th>
                                                                 <th scope="col" className="small text-muted text-uppercase text-center">Data Inicio</th>
-                                                                <th scope="col" className="small text-muted text-uppercase text-center">Data Final</th>                                     
+                                                                <th scope="col" className="small text-muted text-uppercase text-center">Data Final</th>
                                                                 <th scope="col" className="small text-muted text-uppercase text-center">Status</th>
                                                                 <th scope="col" />
                                                             </tr>
@@ -271,19 +341,7 @@ export default function Travels_IndexPage() {
 
                                                                         {/* Opções */}
                                                                         <td className="text-end">
-
-                                                                            <div className="d-flex d-lg-none">
-
-                                                                                <Link class="btn btn-outline-secondary px-2 rounded-5 me-1" to={`/viagens/editar/${travel.idViagem}`}>
-                                                                                    <IconPencil className="px-0 mx-0" stroke={1} size={18} style={{ marginTop: "-4px" }} />
-                                                                                </Link>
-
-                                                                                <button class="btn btn-outline-secondary px-2 rounded-5" onClick={() => deleteTravel(travel.idViagem)}>
-                                                                                    <IconTrash className="px-0 mx-0" stroke={1} size={18} style={{ marginTop: "-4px" }} />
-                                                                                </button>
-                                                                            </div>
-
-                                                                            <div class="dropdown d-none d-lg-block">
+                                                                            <div class="dropdown">
                                                                                 <button class="btn btn-sm dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" />
                                                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                                                     <li>
@@ -302,16 +360,16 @@ export default function Travels_IndexPage() {
                                                                                         </a>
                                                                                     </li>
                                                                                     {
-                                                                                        isAdmin &&
+                                                                                        (isAdmin && (travel.NomeStatusViagem != 'Aprovado' && travel.NomeStatusViagem != 'Rejeitado')) &&
                                                                                         <li>
                                                                                             <div className=" dropdown-divider" />
                                                                                             <h5 className=" dropdown-header">Aprovação</h5>
                                                                                             <li>
-                                                                                                <a class="dropdown-item" href="#">
+                                                                                                <a class="dropdown-item" onClick={() => approveTravel(travel.idViagem)}>
                                                                                                     <IconCheck className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                                     Aprovar
                                                                                                 </a>
-                                                                                                <a class="dropdown-item" href="#">
+                                                                                                <a class="dropdown-item" onClick={() => rejectTravel(travel.idViagem)}>
                                                                                                     <IconX className="icon me-2" stroke={1} size={18} style={{ marginTop: "-4px" }} />
                                                                                                     Rejeitar
                                                                                                 </a>

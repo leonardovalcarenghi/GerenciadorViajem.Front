@@ -42,3 +42,17 @@ export const GetTravels = (userID) => axios.get(`/viagens/empregado/${userID}`);
  * @returns 
  */
 export const GetTravelPDF = (id) => axios.get(`/viagens/${id}/exportar-pdf`);
+
+/**
+ * Aprovar viagem.
+ * @param {*} id Identificador da viagem.
+ * @returns 
+ */
+export const ApproveTravel = (id) => axios.put(`/viagens/${id}/aprovar`);
+
+/**
+ * Rejeitar viagem.
+ * @param {*} id Identificador da viagem.
+ * @returns 
+ */
+export const RejectTravel = (id) => axios.put(`/viagens/${id}/reprovar`);
