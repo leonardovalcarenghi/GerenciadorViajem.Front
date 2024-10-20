@@ -3,6 +3,9 @@ import { USER } from "../../Models/User";
 import { IconPlane } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { NewUser } from "../../Services/Users";
+import Sweetalert2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const Swal = withReactContent(Sweetalert2);
 
 export default function SignUpPage() {
 
@@ -24,6 +27,18 @@ export default function SignUpPage() {
         try {
             const { nomeEmpregado, email, senha } = user;
             await NewUser({ nomeEmpregado, email, senha, idCargo: 2, ativo: true });
+
+            Swal.fire({
+                title: 'Usuário cadastrado!',
+                text: "Seu usuário foi cadastrado com êxito.",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonText: 'OK',
+            });
+
+            navigate("/login");
+
+
         }
         catch (error) {
             setErrorOnProcess(error?.response?.data?.error || error.message);
