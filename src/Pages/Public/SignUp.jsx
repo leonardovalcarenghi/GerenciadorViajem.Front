@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { USER } from "../../Models/User";
 import { IconPlane } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,16 @@ export default function SignUpPage() {
     const [importing, setImporting] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [errorOnProcess, setErrorOnProcess] = useState(false);
+
+    useEffect(() => {
+        // Adiciona a classe ao body quando o componente é montado
+        document.body.classList.add('bg-gradient');
+
+        // Remove a classe ao desmontar o componente
+        return () => {
+            document.body.classList.remove('bg-gradient');
+        };
+    }, []);
 
     async function singUp() {
 

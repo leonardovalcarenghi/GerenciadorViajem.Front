@@ -1,5 +1,4 @@
-import "./Style.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import axios from "axios";
 import {
   IconBrandGoogle,
@@ -16,6 +15,16 @@ export default function LoginPage() {
   const [loadingWithGoogle, setLoadingWithGoogle] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Adiciona a classe ao body quando o componente é montado
+    document.body.classList.add('bg-gradient');
+
+    // Remove a classe ao desmontar o componente
+    return () => {
+      document.body.classList.remove('bg-gradient');
+    };
+  }, []);
 
   // Captura o token da URL após o login com Google OAuth
   useEffect(() => {
