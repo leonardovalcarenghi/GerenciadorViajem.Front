@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { TRAVEL } from "../../Models/Travel";
 import { EditTravel, GetTravel, NewTravel } from "../../Services/Travels";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import PageHeader from "../../Components/Header";
 import { IconBuildingAirport, IconCheck, IconPlaneArrival, IconPlus, IconTrash, IconUser } from "@tabler/icons-react";
 import { GetFederativeUnits } from "../../Services/FederativeUnits";
@@ -11,11 +11,13 @@ import { GetUsers } from "../../Services/Users";
 import Sweetalert2 from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { DateInput } from "../../Components/Forms/DateInput";
+import { UserContext } from "../../Contexts/UserContext";
 const Swal = withReactContent(Sweetalert2);
 
 export default function Travels_FormPage() {
 
     const { identifier } = useParams();
+    const actualUser = useContext(UserContext);
     const navigate = useNavigate();
     const lastDestinationRef = useRef(null); // Referência para o último destino
 
@@ -43,6 +45,8 @@ export default function Travels_FormPage() {
     useEffect(() => { getTravel(); }, [identifier]);
 
     useEffect(() => { if (travel.unidadeFederativaId) { getCities() } }, [travel.unidadeFederativaId]);
+
+    useEffect(() => { if (actualUser) setTravel(_ => ({ ..._, idEmpregado: actualUser.idEmpregado })); }, [actualUser]);
 
 
     async function getUsers() {
