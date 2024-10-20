@@ -171,6 +171,18 @@ export default function LoginPage() {
                     </button>
                   </div>
 
+                  <hr />
+                  <div className="d-grid gap-2">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      disabled={loading || loadingWithGoogle}
+                      onClick={() => navigate("/cadastrar")}
+                    >
+                      Novo Usuário
+                    </button>
+                  </div>
+
                   {error && (
                     <div className="mt-5">
                       <p>{error}</p>

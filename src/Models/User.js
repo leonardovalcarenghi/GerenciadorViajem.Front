@@ -4,9 +4,9 @@ export const USER = Object.freeze({
 
     idEmpregado: PropTypes.number,
     idCargo: PropTypes.number,
-    nomeEmpregado: PropTypes.string,
-    email: PropTypes.string,
-    senha: PropTypes.string,
+    nomeEmpregado: "",
+    email: "",
+    senha: "",
     googleId: PropTypes.string,
     ativo: PropTypes.bool,
     createdAt: PropTypes.instanceOf(Date),
