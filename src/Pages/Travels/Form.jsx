@@ -137,24 +137,25 @@ export default function Travels_FormPage() {
 
     function addDestination() {
         const destination = {
-            "idMunicipioDestino": 101,
-            "DataDestinoViagem": "2024-01-05",
-            "custos": [
+            idUnidadeFederativa: null,
+            idMunicipioDestino: null,
+            DataDestinoViagem: new Date(),
+            custos: [
                 {
-                    "idTipoCusto": 1,
-                    "ValorCustoDestino": 0
+                    idTipoCusto: 1,
+                    ValorCustoDestino: 0
                 },
                 {
-                    "idTipoCusto": 2,
-                    "ValorCustoDestino": 0
+                    idTipoCusto: 2,
+                    ValorCustoDestino: 0
                 },
                 {
-                    "idTipoCusto": 3,
-                    "ValorCustoDestino": 0
+                    idTipoCusto: 3,
+                    ValorCustoDestino: 0
                 },
                 {
-                    "idTipoCusto": 4,
-                    "ValorCustoDestino": 0
+                    idTipoCusto: 4,
+                    ValorCustoDestino: 0
                 },
             ]
         };
