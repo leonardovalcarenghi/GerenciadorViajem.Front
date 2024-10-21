@@ -253,17 +253,19 @@ export default function Travels_FormPage() {
                             </div>
                         </div>
                         <div className="card-body">
-
-                            <div className="row mb-3">
-                                <div className="col-12 col-lg-6 mb-lg-0">
-                                    <label className="form-label required" htmlFor="nameInput">Usuário:</label>
-                                    <select className="form-select" disabled={identifier} value={travel.idEmpregado} onChange={({ target }) => setTravel(_ => ({ ..._, idEmpregado: target.value }))}>
-                                        {importingUsers == false && travel.idEmpregado == null && <option selected disabled label="Selecionar usuário..." />}
-                                        {importingUsers && <option selected disabled label="Carregando..." />}
-                                        {users.map(user => <option key={user.idEmpregado} value={user.idEmpregado} label={user.nomeEmpregado} />)}
-                                    </select>
+                            {
+                                actualUser?.cargo?.idCargo == 1 &&
+                                <div className="row mb-3">
+                                    <div className="col-12 col-lg-6 mb-lg-0">
+                                        <label className="form-label required" htmlFor="nameInput">Usuário:</label>
+                                        <select className="form-select" disabled={identifier} value={travel.idEmpregado} onChange={({ target }) => setTravel(_ => ({ ..._, idEmpregado: target.value }))}>
+                                            {importingUsers == false && travel.idEmpregado == null && <option selected disabled label="Selecionar usuário..." />}
+                                            {importingUsers && <option selected disabled label="Carregando..." />}
+                                            {users.map(user => <option key={user.idEmpregado} value={user.idEmpregado} label={user.nomeEmpregado} />)}
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
+                            }
 
                             <div className="row mb-3">
 
