@@ -88,7 +88,7 @@ export default function SignUpPage() {
             <div className="container">
                 <div className="row d-flex justify-content-center align-items-center vh-100">
                     <div className="col-auto">
-                        <div className="card shadow-lg" style={{ width: "30rem" }}>
+                        <div className="card shadow-lg">
 
                             <div className="card-body">
 
